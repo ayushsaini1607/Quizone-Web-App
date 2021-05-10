@@ -4,10 +4,9 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <meta charset="ISO-8859-1">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Quiz Stats">
-    <title>Faculty - Stats</title>
+    <title>Quiz - Result</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -92,8 +91,8 @@
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/teacher-dashboard"><i class="icon fa fa-circle-o"></i> Home</a></li>
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/create-test.jsp"><i class="icon fa fa-circle-o"></i> Create Quiz</a></li>
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/EditQuiz.jsp"><i class="icon fa fa-circle-o"></i> Edit Quiz</a></li>
-            <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Quiz Stats</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/QuizResult.jsp"><i class="icon fa fa-circle-o"></i> Quiz Result</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/TestStats.jsp"><i class="icon fa fa-circle-o"></i> Quiz Stats</a></li>
+            <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Quiz Result</a></li>
           </ul>
         </li>
         <li><a class="app-menu__item" href="<%=request.getContextPath()%>/JSP/TeacherProfile.jsp" ><i class="app-menu__icon fa fa-user fa-lg"></i><span class="app-menu__label">Profile</span></a></li>
@@ -101,15 +100,15 @@
         <li><a class="app-menu__item" href="<%=request.getContextPath()%>/logout"><i class="app-menu__icon fa fa-sign-out fa-lg"></i><span class="app-menu__label">Logout</span></a></li>
       </ul>
     </aside>
-<main class="app-content">
+   <main class="app-content">
       <div class="app-title">
         <div>
-          <h1><i class="icon fa fa-bar-chart"></i> Stats</h1>
-          <p>Welcome, Here are some interesting stats.</p>
+          <h1><i class="icon fa fa-bar-chart"></i> Quiz Result</h1>
+          <p>Welcome, Lets see how Students have Performed</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="#">Stats</a></li>
+          <li class="breadcrumb-item"><a href="#">Quiz Result</a></li>
         </ul>
       </div>
       <div class="row">
@@ -118,67 +117,14 @@
             <div class="tile-body">
             <div class="table-responsive">
             <table class="table table-hover table-bordered" id="sampleTable">
-            <h3 class="tile-title">Quiz List</h3>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Quiz Title</th>
-                  <th>Quiz Code</th>
-                  <th>Date (yyyy-mm-dd)</th>
-                  <th>Participants</th>
-                  <th>Average Score (10)</th>
-                </tr>
-              </thead>
-              <tbody>
-              <%@page import="java.sql.*" %>
-      <%
-      int count = 1;
-      Connection con=null;
-  	String url = "jdbc:mysql://localhost:3306/testproject";
-  	String username ="root";
-  	String password="Ayush@123";
-  		try {
-  			Class.forName("com.mysql.cj.jdbc.Driver");
-  			con=DriverManager.getConnection(url, username, password);
-  			System.out.println("Post establishing a DB connection - "+con);	
-  			PreparedStatement ps = con.prepareStatement("select * from quiz_to_username where username='"+session.getAttribute("Tea")+"'");
-  			ResultSet r = ps.executeQuery();
-  			while(r.next()){
-  				PreparedStatement pss = con.prepareStatement("select title,date from create_quiz where code='"+r.getString("quiz_id")+"'");
-  	  			ResultSet rr = pss.executeQuery();
-  	  			while(rr.next()){
-  	  			    PreparedStatement pps = con.prepareStatement("select count(participants), avg(score), avg(totalMarks) from result where quizCode='"+r.getString("quiz_id")+"'");
-  	  			    ResultSet rrr = pps.executeQuery();
-  	  			    while(rrr.next()){
-  	  			        session.setAttribute("count", count);
-  	  			        float avg_score=0,avg_total = 1;
-  	  			        if(rrr.getString("avg(score)") != null && rrr.getString("avg(totalMarks)") != null){
-  	  			            avg_score = Float.parseFloat(rrr.getString("avg(score)"));
-  	  			            avg_total = Float.parseFloat(rrr.getString("avg(totalMarks)"));
-  	  			            avg_score = avg_score/avg_total;
-  	  			            avg_score = avg_score * 10;
-  	  			        }
-  		%>
-  				<tr>
-                  <td><%=session.getAttribute("count") %></td>
-                  <td><%=rr.getString("title") %></td>
-                  <td><%=r.getString("quiz_id") %></td>
-                  <td><%=rr.getString("date") %></td>
-                  <td><%=rrr.getString("count(participants)") %></td>
-                  <td><%=avg_score%></td>
-                </tr>
-  		<% 
-  	  			    }
-  	  			}
-  		         count++;
-  			}
-  			con.close();
-  		} catch(ClassNotFoundException E){
-  			E.printStackTrace();
-  		}
-  		
-      %>
-              </tbody>
+        
+           <div>
+            <div class="input-group">
+              <h3 class="tile-title"  style="margin-right:25px">Quiz Code : </h3>
+                  <input class="form-control col-md-3"  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="edit_quiz" required>
+                  <button class="btn btn-primary"  style="margin-right:25px" name="result" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Open Quiz Result</button>
+           </div>
+          </div>
             </table>
             </div>
             </div>

@@ -93,8 +93,10 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/teacher-dashboard"><i class="icon fa fa-circle-o"></i> Home</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/create-test.jsp"><i class="icon fa fa-circle-o"></i> Create Test</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/TestStats.jsp"><i class="icon fa fa-circle-o"></i> Test Stats</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/create-test.jsp"><i class="icon fa fa-circle-o"></i> Create Quiz</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/EditQuiz.jsp"><i class="icon fa fa-circle-o"></i> Edit Quiz</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/TestStats.jsp"><i class="icon fa fa-circle-o"></i> Quiz Stats</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/QuizResult.jsp"><i class="icon fa fa-circle-o"></i> Quiz Result</a></li>
           </ul>
         </li>
         <li><a class="app-menu__item" href="#"><i class="app-menu__icon fa fa-user fa-lg"></i><span class="app-menu__label">Profile</span></a></li>

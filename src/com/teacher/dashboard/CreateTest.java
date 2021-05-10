@@ -68,8 +68,7 @@ public class CreateTest extends HttpServlet {
 	      			p.executeUpdate();
 	      			p.close();
 	      			
-	      			PreparedStatement pp = con.prepareStatement("insert into " + session.getAttribute("Tea")
-	        					+ " values ('" + testTitle+"','"+quizCode+"','"+testDate + "','0','0')");
+	      			PreparedStatement pp = con.prepareStatement("insert into quiz_to_username values ('" + session.getAttribute("Tea")+"','"+quizCode+ "')");
 	        		pp.executeUpdate();
 	        		pp.close();
 	        		

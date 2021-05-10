@@ -116,8 +116,9 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
   			rr.close();
   		    p.close();
   			
-  			PreparedStatement ps2 = con.prepareStatement("select count(*) AS 'total-quiz' from "+session.getAttribute("Tea")+"");
+  			PreparedStatement ps2 = con.prepareStatement("select count(*) AS 'total-quiz' from quiz_to_username where username='"+session.getAttribute("Tea")+"'");
   			ResultSet rs2 = ps2.executeQuery();
+  			int ap = 0;
   			while(rs2.next()){
   				String Tt = rs2.getString("total-quiz");
   				session.setAttribute("Tt", Tt);
@@ -126,13 +127,21 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
   			rs2.close();
   		    ps2.close();
   		    
-  		    PreparedStatement ps3 = con.prepareStatement("select AVG(participants) AS 'average-participants' from "+session.getAttribute("Tea")+"");
+  		    PreparedStatement ps3 = con.prepareStatement("select quiz_id from quiz_to_username where username='"+session.getAttribute("Tea")+"'");
 			ResultSet rs3 = ps3.executeQuery();
 			while(rs3.next()){
-				String ap = rs3.getString("average-participants");
-				session.setAttribute("ap", ap);
-				System.out.println("Average Participants : "+ap);
+				PreparedStatement ps4 = con.prepareStatement("select count(participants) from result where quizCode="+rs3.getString("quiz_id")+"");
+				ResultSet rs4 = ps4.executeQuery();
+				while(rs4.next()){
+					int participant = Integer.parseInt(rs4.getString("count(participants)"));
+					ap = ap + participant;
+				}
+				rs4.close();
+			    ps4.close();
+				
 			}
+			session.setAttribute("ap", ap);
+			System.out.println("Total Participants : "+ap);
 			rs3.close();
 		    ps3.close();
   			con.close();
@@ -163,8 +172,10 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Home</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/create-test.jsp"><i class="icon fa fa-circle-o"></i> Create Test</a></li>
-            <li><a class="treeview-item" href="JSP/TestStats.jsp"><i class="icon fa fa-circle-o"></i> Test Stats</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/create-test.jsp"><i class="icon fa fa-circle-o"></i> Create Quiz</a></li>
+            <li><a class="treeview-item" href="JSP/EditQuiz.jsp"><i class="icon fa fa-circle-o"></i> Edit Quiz</a></li>
+            <li><a class="treeview-item" href="JSP/TestStats.jsp"><i class="icon fa fa-circle-o"></i> Quiz Stats</a></li>
+            <li><a class="treeview-item" href="JSP/QuizResult.jsp"><i class="icon fa fa-circle-o"></i> Quiz Result</a></li>
           </ul>
         </li>
         <li><a class="app-menu__item" href="<%=request.getContextPath()%>/JSP/TeacherProfile.jsp"><i class="app-menu__icon fa fa-user fa-lg"></i><span class="app-menu__label">Profile</span></a></li>
@@ -187,7 +198,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
         <div class="col-md-6">
           <div class="widget-small primary coloured-icon"><i class="icon fa fa-file-text fa-3x"></i>
             <div class="info">
-              <h4>Test Created</h4>
+              <h4>Quiz Created</h4>
               <p><b><%=session.getAttribute("Tt")%></b></p>
             </div>
           </div>
@@ -203,13 +214,20 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
       </div>
       <div class="row">
         <div class="col-md-6">
-          <a href="<%=request.getContextPath()%>/JSP/create-test.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Create Test</button></a><br><br><br>
+          <a href="<%=request.getContextPath()%>/JSP/create-test.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Create Quiz</button></a><br><br><br>
         </div>
         <div class="col-md-6">
-          <a href="<%=request.getContextPath()%>/JSP/TestStats.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Test Stats</button></a><br><br><br>  
+          <a href="<%=request.getContextPath()%>/JSP/TestStats.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Quiz Stats</button></a><br><br><br>  
         </div>
       </div>
-      
+      <div class="row">
+        <div class="col-md-6">
+          <a href="<%=request.getContextPath()%>/JSP/EditQuiz.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Edit Quiz</button></a><br><br><br>
+        </div>
+        <div class="col-md-6">
+          <a href="<%=request.getContextPath()%>/JSP/QuizResult.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Quiz Result</button></a><br><br><br>  
+        </div>
+      </div>
     </main>
     <!-- Essential javascripts for application to work-->
     <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
