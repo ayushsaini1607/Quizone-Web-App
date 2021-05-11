@@ -111,20 +111,45 @@
           <li class="breadcrumb-item"><a href="#">Quiz Result</a></li>
         </ul>
       </div>
+      <div class="app-title">
+        <form action="<%=request.getContextPath()%>/ResultServlet" method="post">
+            <div class="input-group">
+              <h3 class="tile-title"  style="margin-right:25px">Quiz Code : </h3>
+              
+                  <input class="form-control "  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="code_result" required>
+                  <button class="btn btn-primary"  style="margin-right:25px" name="result" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Display Quiz Result</button>
+           </div>
+         </form>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
             <div class="tile-body">
             <div class="table-responsive">
             <table class="table table-hover table-bordered" id="sampleTable">
-        
-           <div>
-            <div class="input-group">
-              <h3 class="tile-title"  style="margin-right:25px">Quiz Code : </h3>
-                  <input class="form-control col-md-3"  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="edit_quiz" required>
-                  <button class="btn btn-primary"  style="margin-right:25px" name="result" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Open Quiz Result</button>
-           </div>
-          </div>
+            <h3 class="tile-title">Result</h3>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Participant</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+              <%@page import="com.quiz.Result" %>
+              <%@page import="java.util.ArrayList" %>
+              <%
+                     int i=0;
+                     ArrayList<Result> rst = (ArrayList<Result>) request.getAttribute("resultList");
+                     if(rst != null){
+                      for(Result R : rst){ %>
+	                    <tr>
+	                    <td><%= i+1 %></td>
+	                    <td><%= R.getUsername() %> </td>
+	                      <td><%= R.getScore() %></td>
+	                    </tr>
+                      <%i++;}}%>
+              </tbody>
             </table>
             </div>
             </div>

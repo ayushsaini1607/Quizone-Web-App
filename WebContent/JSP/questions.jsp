@@ -27,23 +27,23 @@
               <form  method="post" action="<%= request.getContextPath() %>/CreateQuiz">
                 <div class="form-group">
                   <label class="control-label">Question</label>
-                  <textarea class="form-control" rows="4" placeholder="Enter your Question" name="question"></textarea>
+                  <textarea class="form-control" rows="4" placeholder="Enter your Question" name="question" required></textarea>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Option A</label>
-                  <input class="form-control" type="text" placeholder="Enter Option A" name="option1">
+                  <input class="form-control" type="text" placeholder="Enter Option A" name="option1" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Option B</label>
-                  <input class="form-control" type="text" placeholder="Enter Option B" name="option2">
+                  <input class="form-control" type="text" placeholder="Enter Option B" name="option2" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Option C</label>
-                  <input class="form-control" type="text" placeholder="Enter Option C" name="option3">
+                  <input class="form-control" type="text" placeholder="Enter Option C" name="option3" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Option D</label>
-                  <input class="form-control" type="text" placeholder="Enter Option D" name="option4">
+                  <input class="form-control" type="text" placeholder="Enter Option D" name="option4" required>
                 </div>
                 <div class="form-group">
                   <label class="control-label">Correct Option</label>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label">Marks</label>
-                  <input class="form-control" type="number" placeholder="Enter Marks for this question" name="marks">
+                  <input class="form-control" type="number" placeholder="Enter Marks for this question" name="marks" required>
                 </div>
                 <div class="tile-footer">
                   <button class="btn btn-primary" type="submit" name="next"><i class="fa fa-fw fa-lg fa-check-circle"></i>NEXT</button>&nbsp;&nbsp;&nbsp;<button class="btn btn-primary" type="submit" name="create"><i class="fa fa-fw fa-lg fa-check-circle"></i>CREATE</button>

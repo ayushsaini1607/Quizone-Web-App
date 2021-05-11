@@ -41,12 +41,14 @@ public class CreateQuiz extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Inside Question servlet-post");
-		  HttpSession session = request.getSession(false);
-		  
+		HttpSession session = request.getSession(false);
+		int correct = 0; 
 		ArrayList<Question> question = new ArrayList<Question>();
 		String quest = request.getParameter("question");
 		String[] opt = {request.getParameter("option1"),request.getParameter("option2"),request.getParameter("option3"),request.getParameter("option4")};
-		int correct = Integer.parseInt(request.getParameter("correct"));
+		if(request.getParameter("correct") != null) {
+			correct = Integer.parseInt(request.getParameter("correct"));
+		}
 		float marks = Float.parseFloat(request.getParameter("marks"));
 		String code = (String)session.getAttribute("quizCode");
 		question.add(new Question(quest,opt,correct,marks));
@@ -75,7 +77,7 @@ public class CreateQuiz extends HttpServlet {
 	        if(request.getParameter("next") != null) {
 	  			  request.getRequestDispatcher("JSP/questions.jsp").forward(request, response);
 	  		 }else if(request.getParameter("create") != null) {
-	  			  request.getRequestDispatcher("JSP/Teacher.jsp").forward(request, response);
+	  			  request.getRequestDispatcher("JSP/TestStats.jsp").forward(request, response);
 	  		 }
 		
 	}

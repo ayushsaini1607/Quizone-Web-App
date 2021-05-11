@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Question {
 	private static int count=0;
-    private String questionId;
+    private int questionId;
     private String questionTitle;
     private String[] options = new String[4];
     private int correctOption;
@@ -12,7 +12,7 @@ public class Question {
     
     public Question()
     {
-    	questionId = null;
+    	questionId = 0;
     	questionTitle=null;
     	correctOption=-1;
     	weightage=0;
@@ -21,16 +21,21 @@ public class Question {
     public Question(String questionTitle,String options[],int correctOption,float weightage)
     {
     	count++;
-    	this.questionId = Integer.toString(count);
+    	this.questionId = count;
     	this.questionTitle = questionTitle;
     	this.options = Arrays.copyOf(options, options.length);	
     	this.correctOption = correctOption;
     	this.weightage = weightage;
     }
     
-    public String getId()
+    public int getId()
     {
     	return questionId;
+    }
+    
+    public void setId(int questionId)
+    {
+    	this.questionId = questionId;
     }
     
     public String getQuestionTitle()
@@ -38,14 +43,19 @@ public class Question {
     	return questionTitle;
     }
     
+    public void setQuestionTitle(String questionTitle)
+    {
+    	this.questionTitle = questionTitle;
+    }
+    
     public String[] getOptions()
     {
     	return Arrays.copyOf(options, options.length);
     }
     
-    public String getCorrectOption()
+    public int getCorrectOption()
     {
-    	return options[correctOption];  
+    	return correctOption;  
     }
       
     public float getWeightage()

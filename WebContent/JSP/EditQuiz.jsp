@@ -111,20 +111,81 @@
           <li class="breadcrumb-item"><a href="#">Edit Quiz</a></li>
         </ul>
       </div>
+      <div class="app-title">
+        <form action="<%=request.getContextPath()%>/EditQuizServlet" method="get">
+            <div class="input-group">
+              <h3 class="tile-title"  style="margin-right:25px">Quiz Code : </h3>
+              
+                  <input class="form-control "  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="code_edit" required>
+                  <button class="btn btn-primary"  style="margin-right:25px" name="result" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Display Quiz Result</button>
+           </div>
+         </form>
+      </div>
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
             <div class="tile-body">
             <div class="table-responsive">
+            <form name="edit-users" action="<%=request.getContextPath()%>/UpdateQuiz" method="get">
             <table class="table table-hover table-bordered" id="sampleTable">
-            <div>
-            <div class="input-group">
-              <h3 class="tile-title"  style="margin-right:25px">Quiz Code : </h3>
-                  <input class="form-control col-md-3"  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="edit_quiz" required>
-                  <button class="btn btn-primary"  style="margin-right:25px" name="result" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Open Quiz</button>
-           </div>
-          </div>
+              <thead>
+                    <tr>
+                      <th>Unique ID</th>
+                      <th>Question</th>
+                      <th>Option A</th>
+                      <th>Option B</th>
+                      <th>Option C</th>
+                      <th>Option D</th>
+                      <th>Correct Answer</th>
+                      <th>Weightage</th>
+                      <th>Update</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <%@page import="com.quiz.Question" %>
+              <%@page import="java.util.ArrayList" %>
+              <%@page import="java.util.Arrays" %>
+                    <%
+                     int i=0;
+                     ArrayList<Question> questionList = (ArrayList<Question>) request.getAttribute("questionList");
+                     if(questionList != null){
+                      for(Question Q : questionList){ 
+                      String[] opts = Arrays.copyOf(Q.getOptions(), 4);
+                      %>
+	                    <tr>
+	                      <td><input name="quiz_id" class="form-control" type="number" value="<%= Q.getId() %>" readonly></td>
+	                      <td>
+	                        <textarea name="questionTitle" class="form-control" type="text" ><%= Q.getQuestionTitle() %></textarea>
+	                      </td>
+	                      <td>
+	                        <textarea name="option1" class="form-control" type="text" ><%= opts[0] %></textarea>
+	                      </td>
+	                      <td>
+	                        <textarea name="option2" class="form-control" type="text" ><%= opts[1] %></textarea>
+	                      </td>
+	                      <td>
+	                        <textarea name="option3" class="form-control" type="text" ><%= opts[2] %></textarea>
+	                      </td>
+	                      <td>
+	                        <textarea name="option4" class="form-control" type="text" ><%= opts[3] %></textarea>
+	                      </td>
+	                      <td>
+	                      	  <input name="answer" class="form-control" type="number" value="<%= Q.getCorrectOption() %>">
+	                      </td>
+	                      <td>
+	                      	  <input name="marks" class="form-control" type="number" value="<%= Q.getWeightage() %>">
+	                      </td>
+	                      <td>
+	                            <button class="btn btn-primary" type="submit" name="updateQuiz" value="<%=i%>" >Update</button>
+	                            <br>
+	                            <button class="btn btn-primary" type="submit" name="deleteQuiz" value="<%=i%>" >Delete</button>
+	                         
+	                      </td>
+	                    </tr>
+                      <%i++;}}%>
+                  </tbody> 
             </table>
+            </form>
             </div>
             </div>
           </div>
