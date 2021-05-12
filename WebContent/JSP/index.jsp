@@ -38,8 +38,8 @@
       <div class="landing-hero-overlay"></div>
       <div class="landing-hero-content">
         <h1 class="landing-hero-title">Welcome to QUIZONE</h1>
-        <p class="landing-hero-description">€˜Quizone is a web-application that provides conducting authorities to the aspirants/subjects (henceforth referred as stakeholders, unless specified otherwise) of educational institutions/companies in a smooth conduction of the online assessments in protected, interactive manner with a user-friendly interface.</p>
-        <div><a class="btn btn-pri mr-4" href="#contact">CONTACT US</a><a class="btn btn-pri" href="JSP/Login.jsp" target="_blank" rel="noopener">SIGN IN</a></div><!-- <img class="landing-hero-banner" src="images/logo.png"> -->
+        <p class="landing-hero-description">Quizone is a web-based solution that helps authorities and the aspirants of educational institutions/companies in a smooth conduction of the online assessments in protected, interactive manner with a user-friendly interface.</p>
+        <div><a class="btn btn-pri" href="JSP/Login.jsp" target="_blank" rel="noopener">SIGN IN</a></div><!-- <img class="landing-hero-banner" src="images/logo.png"> -->
       </div>
     </section>
     
