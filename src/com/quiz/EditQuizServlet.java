@@ -76,10 +76,16 @@ public class EditQuizServlet extends HttpServlet {
     		statement = con.createStatement();
     		
     		result = statement.executeQuery("select date from create_quiz where code="+code);
-    		while(result.next()) {
+    		if(result.next()) {
     			quizd = result.getString("date");
-    			
     		}
+    		else
+    		{
+    			request.setAttribute("errCodeNotFound","Sorry! We couldn't find this quiz code!");
+    			request.getRequestDispatcher("/JSP/EditQuiz.jsp").forward(request, response);
+    		}
+    				
+    			
     		LocalDate date2 = LocalDate.parse(quizd);
     		if(date1.isBefore(date2) || date1.isAfter(date2)) {
 				ResultSet rstSet = statement.executeQuery("select * from quiz where quiz_code="+code);

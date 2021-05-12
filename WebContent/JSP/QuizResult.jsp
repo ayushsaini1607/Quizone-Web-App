@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.login.util.DBConnection" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="java.sql.Statement" %>
+<%@ page import="java.util.ArrayList" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,12 +118,61 @@
           <li class="breadcrumb-item"><a href="#">Quiz Result</a></li>
         </ul>
       </div>
+       
+        <%
+      
+      	ArrayList<String> quizIds = new ArrayList<>(); 
+        Connection con=null;
+		Statement statement=null;
+		ResultSet resultSet = null;
+		
+		try{
+	  		con = DBConnection.createConnection();
+	  		statement = con.createStatement(); 
+	  		resultSet = statement.executeQuery("select quiz_id from quiz_to_username where username='" + session.getAttribute("Tea") + "'" );
+	  		while(resultSet.next())
+	  		{
+	  			quizIds.add(resultSet.getString("quiz_id"));	
+	  		}
+	
+	  		resultSet.close();
+  	  		statement.close();
+  	  		con.close(); 
+  		} catch(SQLException E)
+  			{
+  				
+  			}   
+        
+      %>
+      
       <div class="app-title">
         <form action="<%=request.getContextPath()%>/ResultServlet" method="post">
             <div class="input-group">
               <h3 class="tile-title"  style="margin-right:25px">Quiz Code : </h3>
               
-                  <input class="form-control "  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="code_result" required>
+                  <select name="code_result" required>
+                  <%
+                      for(String S : quizIds)
+                      {
+                  %>
+                  <%
+                     if(request.getAttribute("code_code")!=null)
+                     {
+                  %>
+                      <option <%= S.equals(request.getAttribute("quiz_quiz").toString()) ? "selected" : "" %> style="margin-right:25px" value="<%=S%>"><%=S%></option>
+                  <%
+                    }
+                    else
+                     {
+                    	 
+                  %>
+                      <option style="margin-right:25px" value="<%=S%>"><%=S%></option>
+                  <% 
+                     }
+                      }
+                  %>
+                  </select>
+                  <!--  <input class="form-control "  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="code_result" required> -->
                   <button class="btn btn-primary"  style="margin-right:25px" name="result" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Display Quiz Result</button>
            </div>
          </form>
