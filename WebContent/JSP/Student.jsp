@@ -20,6 +20,8 @@ if((request.getSession(false).getAttribute("Student")== null) )
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Favicon  -->
+    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/images/favicon.png">
 </head>
 <body class="app sidebar-mini">
     <!-- Navbar-->
@@ -72,7 +74,6 @@ if((request.getSession(false).getAttribute("Student")== null) )
         <!-- User Menu-->
         <li class="dropdown"><a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu"><i class="fa fa-user fa-lg"></i></a>
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
-            <li><a class="dropdown-item" href="setting.html"><i class="fa fa-cog fa-lg"></i> Settings</a></li>
             <li><a class="dropdown-item" href="profile.html"><i class="fa fa-user fa-lg"></i> Profile</a></li>
             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/logout"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
           </ul>
@@ -92,12 +93,11 @@ if((request.getSession(false).getAttribute("Student")== null) )
         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="dashboard.html"><i class="icon fa fa-circle-o"></i> Home</a></li>
-            <li><a class="treeview-item" href="give-test.html"><i class="icon fa fa-circle-o"></i> Give Test</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/Give-Test.jsp"><i class="icon fa fa-circle-o"></i> Give Test</a></li>
             <li><a class="treeview-item" href="history.html"><i class="icon fa fa-circle-o"></i> History</a></li>
           </ul>
         </li>
         <li><a class="app-menu__item" href="profile.html"><i class="app-menu__icon fa fa-user fa-lg"></i><span class="app-menu__label">Profile</span></a></li>
-        <li><a class="app-menu__item" href="setting.html"><i class="app-menu__icon fa fa-cog fa-lg"></i><span class="app-menu__label">Settings</span></a></li>
         <li><a class="app-menu__item" href="<%=request.getContextPath()%>/logout"><i class="app-menu__icon fa fa-sign-out fa-lg"></i><span class="app-menu__label">Logout</span></a></li>
       </ul>
     </aside>
@@ -132,7 +132,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
       </div>
       <div class="row">
         <div class="col-md-6">
-          <a href="give-test.html"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Give Test</button></a><br><br><br>
+          <a href="<%=request.getContextPath()%>/JSP/Give-Test.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Give Test</button></a><br><br><br>
         </div>
         <div class="col-md-6">
           <a href="history.html"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Test History</button></a><br><br><br>  
