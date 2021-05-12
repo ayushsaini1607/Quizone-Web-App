@@ -127,7 +127,7 @@
             <div class="tile-body">
             <div class="table-responsive">
             <form name="edit-users" action="<%=request.getContextPath()%>/UpdateQuiz" method="get">
-            <table class="table table-hover table-bordered" id="sampleTable">
+            <table class="table table-hover table-bordered" id="editTable">
               <thead>
                     <tr>
                       <th>Unique ID</th>
@@ -153,7 +153,7 @@
                       String[] opts = Arrays.copyOf(Q.getOptions(), 4);
                       %>
 	                    <tr>
-	                      <td><input name="quiz_id" class="form-control" type="number" value="<%= Q.getId() %>" readonly></td>
+	                      <td><textarea name="quiz_id" class="form-control" type="text" readonly><%= Q.getId()%></textarea></td>
 	                      <td>
 	                        <textarea name="questionTitle" class="form-control" type="text" ><%= Q.getQuestionTitle() %></textarea>
 	                      </td>
@@ -170,10 +170,10 @@
 	                        <textarea name="option4" class="form-control" type="text" ><%= opts[3] %></textarea>
 	                      </td>
 	                      <td>
-	                      	  <input name="answer" class="form-control" type="number" value="<%= Q.getCorrectOption() %>">
+	                      	  <textarea name="answer" class="form-control" type="text" ><%= Q.getCorrectOption() %></textarea>
 	                      </td>
 	                      <td>
-	                      	  <input name="marks" class="form-control" type="number" value="<%= Q.getWeightage() %>">
+	                      	  <textarea name="marks" class="form-control" type="text" ><%= Q.getWeightage() %></textarea>
 	                      </td>
 	                      <td>
 	                            <button class="btn btn-primary" type="submit" name="updateQuiz" value="<%=i%>" >Update</button>
@@ -199,6 +199,33 @@
     <script src="<%=request.getContextPath()%>/js/main.js"></script><!-- Dashboard ka dropdown -->
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+<!--    <script type="text/javascript">$('#sampleTable').DataTable();</script> -->
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script> 
+   <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script> 
+    <script type="text/javascript">
+        $(document).ready(function() 
+			{ 
+			    $('#editTable').DataTable( 
+			    {   
+			        dom: 'Blfrtip',
+		            buttons: [      
+		                {
+		                    extend: 'pdfHtml5',
+		                    title: 'Quiz Questions : <%= request.getAttribute("code_code") %>',
+		                    className: 'btn_pdf',
+		                    text:'Download Questions' 
+		                }
+			       ]	        
+			    });
+		        
+		        $('.btn_pdf').attr("class","btn btn-primary");
+
+			} );
+    </script>  
 </body>
 </html>

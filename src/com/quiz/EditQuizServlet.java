@@ -67,8 +67,8 @@ public class EditQuizServlet extends HttpServlet {
 		Connection con=null;
     	Statement statement=null;
     	ResultSet result=null;
-    	ResultSet resultSet=null;
-    	
+//    	ResultSet rstSet=null;
+    	String quizd="";
     	
     	try {
     		
@@ -77,26 +77,28 @@ public class EditQuizServlet extends HttpServlet {
     		
     		result = statement.executeQuery("select date from create_quiz where code="+code);
     		while(result.next()) {
-    			String quizd = result.getString("date");
-    			LocalDate date2 = LocalDate.parse(quizd);
-				if(date1.isBefore(date2) || date1.isAfter(date2)) {
-					resultSet = statement.executeQuery("select * from quiz where quiz_code="+code);
-					
-					while(resultSet.next())
-					{
-						Question question = new Question();
-						question.setId(Integer.parseInt(resultSet.getString("quiz_id")));
-						question.setQuestionTitle(resultSet.getString("questionTitle"));
-						String[] opt = {resultSet.getString("option1"),resultSet.getString("option2"),resultSet.getString("option3"),resultSet.getString("option4")};
-						question.setOptions(opt);
-						question.setCorrectOption(Integer.parseInt(resultSet.getString("answer")));
-						question.setWeightage(Float.parseFloat(resultSet.getString("marks")));
-						questions.add(question);
-						request.setAttribute("questionList", questions);
-					}
-					resultSet.close();
-				}
+    			quizd = result.getString("date");
+    			
     		}
+    		LocalDate date2 = LocalDate.parse(quizd);
+    		if(date1.isBefore(date2) || date1.isAfter(date2)) {
+				ResultSet rstSet = statement.executeQuery("select * from quiz where quiz_code="+code);
+				
+				while(rstSet.next())
+				{
+					Question question = new Question();
+					question.setId(Integer.parseInt(rstSet.getString("quiz_id")));
+					question.setQuestionTitle(rstSet.getString("questionTitle"));
+					String[] opt = {rstSet.getString("option1"),rstSet.getString("option2"),rstSet.getString("option3"),rstSet.getString("option4")};
+					question.setOptions(opt);
+					question.setCorrectOption(Integer.parseInt(rstSet.getString("answer")));
+					question.setWeightage(Float.parseFloat(rstSet.getString("marks")));
+					questions.add(question);
+					request.setAttribute("questionList", questions);
+					request.setAttribute("code_code", code);
+				}
+				rstSet.close();
+			}
     		result.close();
     		
     		

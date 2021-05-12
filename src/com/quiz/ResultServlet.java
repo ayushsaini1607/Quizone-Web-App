@@ -52,25 +52,34 @@ public class ResultServlet extends HttpServlet {
 		
 		Connection con=null;
     	Statement statement=null;
-    	ResultSet resultSet=null;
-    	
+    	ResultSet resultset=null;
     	
     	try {
     		
     		con=DBConnection.createConnection();
     		statement = con.createStatement();
     		
-    		resultSet = statement.executeQuery("select * from result where quizCode="+code);
+    		resultset = statement.executeQuery("select * from result where quizCode="+code);
     		
-    		while(resultSet.next())
+    		while(resultset.next())
     		{
-    				Result result = new Result();
-    				result.setUsername(resultSet.getString("participants"));
-    				result.setScore(Float.parseFloat(resultSet.getString("score")));
-    				results.add(result);
+    			Result result = new Result();
+    			result.setUsername(resultset.getString("participants"));
+    			result.setScore(Float.parseFloat(resultset.getString("score")));
+    			results.add(result);
     			request.setAttribute("resultList", results);
+    			request.setAttribute("quiz_quiz",code);
     		}
+    		resultset.close();
     		
+    		for(Result R : results) {
+    			ResultSet rs=null;
+    			rs = statement.executeQuery("select institute_id from username_to_inst_id where username='"+R.getUsername()+"'");
+    			while(rs.next()) {
+    				R.setInstituteID(rs.getString("institute_id"));
+    			}
+    			rs.close();
+    		}
         	} catch(SQLException E)
 	        	{
 	        		E.printStackTrace();

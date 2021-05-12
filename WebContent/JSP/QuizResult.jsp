@@ -126,11 +126,13 @@
           <div class="tile">
             <div class="tile-body">
             <div class="table-responsive">
-            <table class="table table-hover table-bordered" id="sampleTable">
-            <h3 class="tile-title">Result</h3>
+            <table class="table table-hover table-bordered" id="resultTable">
+            
+            <h3 class="tile-title">Result : </h3>
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Institute ID</th>
                   <th>Participant</th>
                   <th>Score</th>
                 </tr>
@@ -145,6 +147,7 @@
                       for(Result R : rst){ %>
 	                    <tr>
 	                    <td><%= i+1 %></td>
+	                    <td><%= R.getInstituteID() %> </td>
 	                    <td><%= R.getUsername() %> </td>
 	                      <td><%= R.getScore() %></td>
 	                    </tr>
@@ -164,6 +167,32 @@
     <script src="<%=request.getContextPath()%>/js/main.js"></script><!-- Dashboard ka dropdown -->
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">$('#sampleTable').DataTable();</script>
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> -->
+ <!--   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> -->
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script> 
+<!--    <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script> -->
+    <script type="text/javascript">
+        $(document).ready(function() 
+			{ 
+			    $('#resultTable').DataTable( 
+			    {   
+			        dom: 'Blfrtip',
+		            buttons: [      
+		                {
+		                    extend: 'excelHtml5',
+		                    title: 'Quiz Result : <%= request.getAttribute("quiz_quiz") %>',
+		                    className: 'btn_excel',
+		                    text:'Download Results' 
+		                }
+			       ]	        
+			    });
+		        
+		        $('.btn_excel').attr("class","btn btn-primary");
+
+			} );
+    </script>  
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.quiz;
 
 public class Result {
+	private String instituteID;
 	private String username;
 	private float score;
 	
@@ -27,5 +28,13 @@ public class Result {
 	
 	public void setScore(float score) {
 		this.score = score;
+	}
+
+	public String getInstituteID() {
+		return instituteID;
+	}
+
+	public void setInstituteID(String instituteID) {
+		this.instituteID = instituteID;
 	}
 }

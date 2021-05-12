@@ -69,22 +69,23 @@ public class UpdateQuiz extends HttpServlet {
 			    	System.out.println("Quiz Code : "+quiz);
 			    	request.setAttribute("code_code", quiz);
 			    }
+			    rr.close();
 	  		 }else if(request.getParameter("deleteQuiz") != null) {
 	  			int delete = Integer.parseInt(request.getParameter("deleteQuiz"));
 	  			
 	  			int quiz_id = Integer.parseInt(request.getParameterValues("quiz_id")[delete]);
 	  			
-	  			ResultSet rr = statement.executeQuery("select quiz_code from quiz where quiz_id="+quiz_id);
-			    while(rr.next()) {
-			    	int quiz = Integer.parseInt(rr.getString("quiz_code"));
+	  			ResultSet rrrr = statement.executeQuery("select quiz_code from quiz where quiz_id="+quiz_id);
+			    while(rrrr.next()) {
+			    	int quiz = Integer.parseInt(rrrr.getString("quiz_code"));
 			    	System.out.println("Quiz Code : "+quiz);
 			    	request.setAttribute("code_code", quiz);
 			    }
-			    
+			    rrrr.close();
 	  			String query = " delete from quiz where quiz_id="+quiz_id;
-			    int r = statement.executeUpdate(query);
+			    int rrr = statement.executeUpdate(query);
 			    		
-			    if(r == 0) {
+			    if(rrr == 0) {
 				    System.out.println(" Quiz ID not Found!");
 			    }else {
 				    System.out.println(" Record Deleted Successfully!");
