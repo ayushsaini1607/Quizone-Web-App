@@ -43,7 +43,7 @@
       </div>
     </section>
     
-
+  <!--
     <section class="features" id="contact">
       
       <div class="container">
@@ -93,7 +93,7 @@
                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
                    <span class="sr-only">Next</span>
                 </a>
-            </div> -->
+            </div> 
          
             <div class=" login-box col-md-6 col-sm-12 skills-column">
                 <form class="login-form" action="stu-dashboard.html">
@@ -111,9 +111,9 @@
                 </form>
             </div>
           </div>
-        </div>
+        </div> 
 
-    </section>
+    </section>  -->
     <!--/.page-section-->
 
     <footer class="landing-footer">

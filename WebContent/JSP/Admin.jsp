@@ -147,7 +147,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
 				  		resultSet = statement.executeQuery("select count(username) as studentCount from users where userType='student'");
 				  		if(resultSet.next())
 				  			studentCount = resultSet.getString("studentCount");
-				  		resultSet = statement.executeQuery("select count(distinct quiz_id) as quizCount from quiz");
+				  		resultSet = statement.executeQuery("select count(quiz_id) as quizCount from quiz_to_username");
 				  		if(resultSet.next())
 				  			quizCount = resultSet.getString("quizCount");
 				  		//out.println("userCount = " +  userCount);
