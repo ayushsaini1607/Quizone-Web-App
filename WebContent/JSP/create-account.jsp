@@ -13,6 +13,12 @@
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
+ <%
+  if((request.getSession(false).getAttribute("Admin")== null) )
+{
+%>
+<jsp:forward page="/JSP/Login.jsp"></jsp:forward>
+<%} %>
   <body>
     <section class="material-half-bg">
       <div class="cover"></div>

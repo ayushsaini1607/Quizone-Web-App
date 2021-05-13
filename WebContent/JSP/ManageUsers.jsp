@@ -222,11 +222,8 @@ if((request.getSession(false).getAttribute("Admin")== null) )
 	                      </td>
 	                      <td><input name="inst_id" class="form-control" type="text" value="<%= U.getInstituteId() %>"></td>
 	                      <td>
-	                      	<select name="userType">
-	                      	    <option <%= (U.getClass().getSimpleName()).equals("Admin") ? "selected" : "" %> value="Admin">Admin</option>
-	                      	    <option <%= (U.getClass().getSimpleName()).equals("Teacher") ? "selected" : "" %> value="Teacher">Teacher</option>
-	                      	    <option <%= (U.getClass().getSimpleName()).equals("Student") ? "selected" : "" %> value="Student">Student</option>
-	                      	</select>   
+	            
+	                      	<input name="userType" class="form-control" value= "<%= U.getClass().getSimpleName() %>" readonly>
 	                      </td>
 	                      <td>
 	                        <button class="btn btn-primary" type="submit" name="update" value="<%=i%>" >Update</button>

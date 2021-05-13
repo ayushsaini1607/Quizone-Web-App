@@ -97,4 +97,14 @@
       <servlet-name>EditUsersServlet</servlet-name>
       <url-pattern>/edit-users</url-pattern>
     </servlet-mapping>
+    <servlet>
+      <description></description>
+      <display-name>RetrievePasswordServlet</display-name>
+      <servlet-name>RetrievePasswordServlet</servlet-name>
+      <servlet-class>com.admin.RetrievePasswords.RetrievePasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+      <servlet-name>RetrievePasswordServlet</servlet-name>
+      <url-pattern>/retrieve-password</url-pattern>
+    </servlet-mapping>
 </web-app>

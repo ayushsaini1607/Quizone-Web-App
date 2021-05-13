@@ -100,6 +100,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
             <li><a class="treeview-item" href="<%= request.getContextPath() %>/admin-dashboard"><i class="icon fa fa-circle-o"></i> Home</a></li>
             <li><a class="treeview-item" href="JSP/create-account.jsp"><i class="icon fa fa-circle-o"></i> Create Account</a></li>
             <li><a class="treeview-item" href="<%=request.getContextPath() %>/manage-users"><i class="icon fa fa-circle-o"></i> Manage Users</a></li>
+             <li><a class="treeview-item" href="<%= request.getContextPath() %>/JSP/RetrievePassword.jsp"><i class="icon fa fa-circle-o"></i> Retrieve User Passwords</a></li>
             <!-- <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> kch btao</a></li>
             <li><a class="treeview-item" href="feedback.html"><i class="icon fa fa-circle-o"></i> Feedback</a></li>
  -->          </ul>
