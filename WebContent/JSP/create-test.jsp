@@ -60,6 +60,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
             <label class="control-label">Test Date</label>
             <input class="form-control" type="date" name="testDate">
           </div>
+          <div style="color:red"><%=(request.getAttribute("errDate") == null) ? "" : request.getAttribute("errDate")%></div>
           <div class="form-group btn-container" >
             <a href="questions.html"><button class="btn btn-primary btn-block" type="submit"><i class="fa fa-chevron-circle-right fa-lg fa-fw" ></i>CONTINUE</button></a>
           </div>

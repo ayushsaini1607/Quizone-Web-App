@@ -206,7 +206,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
         <div class="col-md-6">
           <div class="widget-small info coloured-icon"><i class="icon fa fa-bar-chart fa-3x"></i>
             <div class="info">
-              <h4>Average Participants</h4>
+              <h4>Total Participants</h4>
               <p><b><%=session.getAttribute("ap")%></b></p>
             </div>
           </div>

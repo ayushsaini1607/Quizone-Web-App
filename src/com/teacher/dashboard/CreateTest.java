@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 
 import com.login.util.DBConnection;
 import com.users.Teacher;
@@ -55,15 +56,17 @@ public class CreateTest extends HttpServlet {
 		  System.out.println("End Time : " + endTime);
 		  System.out.println("Quiz Code : " + quizCode);
 		  
-
 		  Connection con=null;
 	      Statement statement=null;
 	      
-	        	try {
+	      LocalDate date1 = java.time.LocalDate.now();
+	      LocalDate date2 = LocalDate.parse(testDate);
+	      if(date1.isBefore(date2) || date1.isEqual(date2)) {
+	    	  try {
 	        		
 	        		con = DBConnection.createConnection();
 	        		PreparedStatement p = con.prepareStatement("insert into create_quiz values ('" + testTitle 
-        					+ "','" + startTime + "','" + endTime + "','" + testDate + "','" + quizCode +"')");
+      					+ "','" + startTime + "','" + endTime + "','" + testDate + "','" + quizCode +"')");
 	        		
 	      			p.executeUpdate();
 	      			p.close();
@@ -72,11 +75,19 @@ public class CreateTest extends HttpServlet {
 	        		pp.executeUpdate();
 	        		pp.close();
 	        		
+	        		request.getRequestDispatcher("JSP/questions.jsp").forward(request, response);
 	        	} catch(SQLException E)
 	        	{
 	        		E.printStackTrace();
 	        	}
-	        	request.getRequestDispatcher("JSP/questions.jsp").forward(request, response);
+	      }else {
+	    	    String error = "Please Enter Valid Date!";
+	    	    System.out.println("Error message = "+error);
+	            request.setAttribute("errDate", error);
+	            request.getRequestDispatcher("/JSP/create-test.jsp").forward(request, response);
+	      }
+	      
+	        	
 		 
 	}
 

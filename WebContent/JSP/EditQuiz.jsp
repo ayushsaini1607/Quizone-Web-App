@@ -82,7 +82,7 @@
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
-      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="images/logo.png" width="50" alt="User Image">
+      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="<%= request.getContextPath() %>/images/logo.png" width="50" alt="User Image">
         <div>
         <%
         //String one = request.getAttribute("user");
@@ -150,7 +150,7 @@
             <div class="input-group">
               <h3 class="tile-title"  style="margin-right:25px">Quiz Code : </h3>
               
-                 <select name="code_edit" required>
+                 <select name="code_edit" class="form-control" style="margin-right:25px" required>
                   <%
                       for(String S : quizIds)
                       {
@@ -274,7 +274,7 @@
 		                    extend: 'pdfHtml5',
 		                    title: 'Quiz Questions : <%= request.getAttribute("code_code") %>',
 		                    className: 'btn_pdf',
-		                    text:'Download Questions' 
+		                    text:'Download Questions'
 		                }
 			       ]	        
 			    });
