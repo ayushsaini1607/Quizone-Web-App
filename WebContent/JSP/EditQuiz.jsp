@@ -22,6 +22,12 @@
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<% //In case, if Teacher session is not set, redirect to Login page
+if((request.getSession(false).getAttribute("Teacher")== null) )
+{
+%>
+<jsp:forward page="/JSP/Login.jsp"></jsp:forward>
+<%} %>
 <body class="app sidebar-mini">
 <header class="app-header">
       <a class="app-header__logo" href="index.html">Quizone</a>
@@ -226,7 +232,13 @@
 	                        <textarea name="option4" class="form-control" type="text" ><%= opts[3] %></textarea>
 	                      </td>
 	                      <td>
-	                      	  <textarea name="answer" class="form-control" type="text" ><%= Q.getCorrectOption() %></textarea>
+	                      	  <!--  <textarea name="answer" class="form-control" type="text" ><%= Q.getCorrectOption() %></textarea> -->
+	                      	  <select name="answer" class="form-control">
+	                      	     <option value="1" <%= Q.getCorrectOption()==1 ? "selected" : "" %>>A</option>
+	                      	     <option value="2" <%= Q.getCorrectOption()==2 ? "selected" : "" %>>B</option>
+	                      	     <option value="3" <%= Q.getCorrectOption()==3 ? "selected" : "" %>>C</option>
+	                      	     <option value="4" <%= Q.getCorrectOption()==4 ? "selected" : "" %>>D</option>    
+	                      	  </select>
 	                      </td>
 	                      <td>
 	                      	  <textarea name="marks" class="form-control" type="text" ><%= Q.getWeightage() %></textarea>

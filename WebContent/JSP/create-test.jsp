@@ -26,7 +26,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
     </section>
     <section class="login-content">
       <div class="logo">
-        <h1>Quizone</h1> 
+         <a href="<%=request.getContextPath()%>/teacher-dashboard"><h1 style="color:white">Quizone</h1></a>  
       </div>
       <div class="test-box">
         <form class="login-form " method="post" action="<%= request.getContextPath() %>/CreateTest">

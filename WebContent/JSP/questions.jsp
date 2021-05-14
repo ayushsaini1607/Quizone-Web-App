@@ -15,10 +15,20 @@
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<% //In case, if Teacher session is not set, redirect to Login page
+if((request.getSession(false).getAttribute("Teacher")== null) )
+{
+%>
+<jsp:forward page="/JSP/Login.jsp"></jsp:forward>
+<%} %>
 <body>
     <section class="material-half-bg">
       <div class="cover"></div>
     </section>
+
+	    <div class="logo">
+	          <a href="<%=request.getContextPath()%>/teacher-dashboard"><h1 style="color:white">Quizone</h1></a>   
+	      </div>
     <div class="row">
         <div class="col-md-12">
           <div class="tile">
@@ -50,7 +60,7 @@
                   <div class="utility">
                   <div class="animated-radio-button">
                     <label class="form-group btn-container">
-                      <input type="radio" id="A" value="1" name="correct"><span class="label-text"> A  </span>
+                      <input type="radio" id="A" value="1" name="correct" required><span class="label-text"> A  </span>
                     </label>
                     <label class="form-group btn-container">
                       <input type="radio" id="B" value="2" name="correct"><span class="label-text"> B </span>
@@ -74,6 +84,7 @@
               </form>
             </div>
           </div>
+           <a href="<%=request.getContextPath()%>/teacher-dashboard"><button class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>HOME</button>&nbsp;&nbsp;&nbsp;</a>
         </div>
       </div>
     <!-- Essential javascripts for application to work-->

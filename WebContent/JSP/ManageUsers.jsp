@@ -97,6 +97,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/admin-dashboard"><i class="icon fa fa-circle-o"></i> Home</a></li>
             <li><a class="treeview-item" href="JSP/create-account.jsp"><i class="icon fa fa-circle-o"></i> Create Account</a></li>
             <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Manage Users</a></li>
+            <li><a class="treeview-item" href="<%= request.getContextPath() %>/JSP/RetrievePassword.jsp"><i class="icon fa fa-circle-o"></i> Retrieve User Passwords</a></li>
             <!-- <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Aur Btao</a></li>
             <li><a class="treeview-item" href="feedback.html"><i class="icon fa fa-circle-o"></i> Feedback</a></li> -->
           </ul>
@@ -136,94 +137,26 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                     </tr>
                   </thead>
                   <tbody>
-                    <!--  <tr>
-                      <td>
-                        <input class="form-control" type="text" value="Ayush">
-                      </td>
-                      <td>
-                        <input class="form-control" type="text" value="Singh">
-                      </td>
-                      <td>ayush.singh.btech2019@sitpune.edu.in</td>
-                      <td>ayush.singh
-                      </td>
-                      <td>19070122040</td>
-                      <td>
-                        <input class="form-control" type="text" value="2001/03/15">
-                      </td>
-                      <td>Admin</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input class="form-control" type="text" value="Ayush">
-                      </td>
-                      <td>
-                        <input class="form-control" type="text" value="Ram">
-                      </td>
-                      <td>ayush.ram.btech2019@sitpune.edu.in</td>
-                      <td>ayush.ram</td>
-                      <td>19070122041</td>
-                      <td>
-                        <input class="form-control" type="text" value="2002/07/23">
-                      </td>
-                      <td>Admin</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input class="form-control" type="text" value="Ayush">
-                      </td>
-                      <td>
-                        <input class="form-control" type="text" value="Saini">
-                      </td>
-                      <td>ayush.saini.btech2019@sitpune.edu.in</td>
-                      <td>ayush.saini</td>
-                      <td>19070122042</td>
-                      <td>
-                        <input class="form-control" type="text" value="2002/07/16">
-                      </td>
-                      <td>Admin</td>
-                    </tr>
-                    <tr>
-                      <td><input class="form-control" type="text" value="Bailee"></td>
-                      <td>
-                        <input class="form-control" type="text" value="Kapoor">
-                      </td>
-                      <td>bailee.kapoor.btech2019@sitpune.edu.in</td>
-                      <td>bailee.kapoor</td>
-                      <td>19070122050</td>
-                      <td><input class="form-control" type="text" value="2001/10/15"></td>
-                      <td>Student</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input class="form-control" type="text" value="Ridhima">
-                      </td>
-                      <td><input class="form-control" type="text" value="Pandit"></td>
-                      <td>ridhima.pandit.btech2019@sitpune.edu.in</td>
-                      <td>ridhima.pandit</td>
-                      <td>987654</td>
-                      <td>
-                        <input class="form-control" type="text" value="1985/07/23">
-                      </td>
-                      <td>Faculty</td>
-                    </tr>  -->
                     <%
                      int i=0;
                      ArrayList<User> usersList = (ArrayList<User>) request.getAttribute("userList");
                       for(User U : usersList){ %>
 	                    <tr>
 	                      <td>
-	                        <input name="fname" class="form-control" type="text" value="<%= U.getFname() %>">
+	                        <input <%= U.getClass().getSimpleName().equals("Admin") && !U.getUserName().equals(request.getAttribute("username")) ? "readonly" : "" %> name="fname" class="form-control" type="text" value="<%= U.getFname() %>">
 	                      </td>
 	                      <td>
-	                        <input name="lname" class="form-control" type="text" value="<%= U.getLname() %>">
+	                        <input <%= U.getClass().getSimpleName().equals("Admin") && !U.getUserName().equals(request.getAttribute("username")) ? "readonly" : "" %> name="lname" class="form-control" type="text" value="<%= U.getLname() %>">
 	                      </td>
-	                      <td><input name="email" class="form-control" type="email" value="<%= U.getemail() %>"></td>
-	                      <td><input name="edit-username" class="form-control" value= "<%= U.getUserName() %>" readonly>
-	                      </td>
-	                      <td><input name="inst_id" class="form-control" type="text" value="<%= U.getInstituteId() %>"></td>
 	                      <td>
-	            
-	                      	<input name="userType" class="form-control" value= "<%= U.getClass().getSimpleName() %>" readonly>
+	                        <input <%= U.getClass().getSimpleName().equals("Admin") && !U.getUserName().equals(request.getAttribute("username")) ? "readonly" : "" %> name="email" class="form-control" type="email" value="<%= U.getemail() %>">
+	                      </td>
+	                      <td>
+	                        <input name="edit-username" class="form-control" value= "<%= U.getUserName() %>" readonly>
+	                      </td>
+	                      <td><input <%= U.getClass().getSimpleName().equals("Admin") && !U.getUserName().equals(request.getAttribute("username")) ? "readonly" : "" %> name="inst_id" class="form-control" type="text" value="<%= U.getInstituteId() %>"></td>
+	                      <td>
+	                     	<input name="userType" class="form-control" value= "<%= U.getClass().getSimpleName() %>" readonly>
 	                      </td>
 	                      <td>
 	                        <button class="btn btn-primary" type="submit" name="update" value="<%=i%>" >Update</button>

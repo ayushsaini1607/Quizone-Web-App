@@ -22,6 +22,12 @@
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<% //In case, if Teacher session is not set, redirect to Login page
+if((request.getSession(false).getAttribute("Teacher")== null) )
+{
+%>
+<jsp:forward page="/JSP/Login.jsp"></jsp:forward>
+<%} %>
 <body class="app sidebar-mini">
 <header class="app-header">
       <a class="app-header__logo" href="index.html">Quizone</a>
