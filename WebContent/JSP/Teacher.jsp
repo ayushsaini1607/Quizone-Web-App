@@ -163,8 +163,8 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
     <aside class="app-sidebar">
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="images/logo.png" width="50" alt="User Image">
         <div>
-          <p class="app-sidebar__user-name"><%=request.getAttribute("username")%></p>
-          <p class="app-sidebar__user-designation">Teacher</p>
+          <p class="app-sidebar__user-name"><%=session.getAttribute("Tea") %></p>
+          <p class="app-sidebar__user-designation">Faculty</p>
         </div>
       </div>
       <ul class="app-menu">
