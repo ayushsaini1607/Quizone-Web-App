@@ -84,7 +84,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
               </form>
             </div>
           </div>
-           <a href="<%=request.getContextPath()%>/teacher-dashboard"><button class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>HOME</button>&nbsp;&nbsp;&nbsp;</a>
+           <!--  <a href="<%=request.getContextPath()%>/teacher-dashboard"><button class="btn btn-primary"><i class="fa fa-fw fa-lg fa-check-circle"></i>HOME</button>&nbsp;&nbsp;&nbsp;</a> -->
         </div>
       </div>
     <!-- Essential javascripts for application to work-->

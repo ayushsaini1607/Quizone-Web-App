@@ -46,46 +46,53 @@ public class ResultServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Inside Result servlet");
 		HttpSession session = request.getSession(false);
-		
-		ArrayList<Result> results = new ArrayList<>();
-		int code = Integer.parseInt(request.getParameter("code_result"));
-		
-		Connection con=null;
-    	Statement statement=null;
-    	ResultSet resultset=null;
-    	
-    	try {
-    		
-    		con=DBConnection.createConnection();
-    		statement = con.createStatement();
-    		
-    		resultset = statement.executeQuery("select * from result where quizCode="+code);
-    		
-    		while(resultset.next())
-    		{
-    			Result result = new Result();
-    			result.setUsername(resultset.getString("participants"));
-    			result.setScore(Float.parseFloat(resultset.getString("score")));
-    			results.add(result);
-    			request.setAttribute("resultList", results);
-    			request.setAttribute("quiz_quiz",code);
-    		}
-    		resultset.close();
-    		
-    		for(Result R : results) {
-    			ResultSet rs=null;
-    			rs = statement.executeQuery("select institute_id from username_to_inst_id where username='"+R.getUsername()+"'");
-    			while(rs.next()) {
-    				R.setInstituteID(rs.getString("institute_id"));
-    			}
-    			rs.close();
-    		}
-        	} catch(SQLException E)
-	        	{
-	        		E.printStackTrace();
-	        	}
-    	
-		request.getRequestDispatcher("/JSP/QuizResult.jsp").forward(request, response);
+		if(session==null)
+		  {
+			  request.setAttribute("Message", "Session timed out!");
+			  request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
+		  }
+		else
+		{
+			ArrayList<Result> results = new ArrayList<>();
+			int code = Integer.parseInt(request.getParameter("code_result"));
+			
+			Connection con=null;
+	    	Statement statement=null;
+	    	ResultSet resultset=null;
+	    	
+	    	try {
+	    		
+	    		con=DBConnection.createConnection();
+	    		statement = con.createStatement();
+	    		
+	    		resultset = statement.executeQuery("select * from result where quizCode="+code);
+	    		
+	    		while(resultset.next())
+	    		{
+	    			Result result = new Result();
+	    			result.setUsername(resultset.getString("participants"));
+	    			result.setScore(Float.parseFloat(resultset.getString("score")));
+	    			results.add(result);
+	    			request.setAttribute("resultList", results);
+	    			request.setAttribute("quiz_quiz",code);
+	    		}
+	    		resultset.close();
+	    		
+	    		for(Result R : results) {
+	    			ResultSet rs=null;
+	    			rs = statement.executeQuery("select institute_id from username_to_inst_id where username='"+R.getUsername()+"'");
+	    			while(rs.next()) {
+	    				R.setInstituteID(rs.getString("institute_id"));
+	    			}
+	    			rs.close();
+	    		}
+	        	} catch(SQLException E)
+		        	{
+		        		E.printStackTrace();
+		        	}
+	    	
+			request.getRequestDispatcher("/JSP/QuizResult.jsp").forward(request, response);
+		}
 	}
 
 }

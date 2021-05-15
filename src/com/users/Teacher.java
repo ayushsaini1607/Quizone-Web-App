@@ -144,30 +144,14 @@ public class Teacher implements User {
         	return false;     		
         }
         
-        public boolean edit(String changedValue,boolean UsernameOrPassword)
+        public boolean edit(String changedValue)
         {
         	Connection con=null;
         	PreparedStatement statement=null;
         	
         	try {
         		
-        		con=DBConnection.createConnection();
-        		if(UsernameOrPassword)
-        		{
-        			String sqlUpdate="update users set username= ? where username= ?";
-        			statement=con.prepareStatement(sqlUpdate);
-       		        statement.setString(1,changedValue);
-       		        statement.setString(2,this.username);
-        			this.setUserName(changedValue); 
-        			statement.executeUpdate();
-        			if(statement!=null)
-        				statement.close();
-        			if(con!=null)
-        				con.close();
-        			return true;
-        		}
-        		else
-            	{	
+        		con=DBConnection.createConnection();  			
         			String sqlUpdate="update users set password= ? where username= ?";
         			statement=con.prepareStatement(sqlUpdate);
        		        statement.setString(1,changedValue);
@@ -179,7 +163,6 @@ public class Teacher implements User {
         			if(con!=null)
         				con.close();
             		return true;
-            	}
         		
         		
         	} catch(SQLException E)

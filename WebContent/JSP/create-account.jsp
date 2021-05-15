@@ -65,7 +65,8 @@
           <div class="form-group btn-container" >
             <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-chevron-circle-right fa-lg fa-fw" ></i>SUBMIT</button>
           </div>
-           <div style="color:red"><%=request.getAttribute("UserAdd")!=null ? request.getAttribute("UserAdd") : "" %></div>
+           <div style="color:green"><%=request.getAttribute("UserAdd")!=null ? request.getAttribute("UserAdd") : "" %></div>
+           <div style="color:red"><%=request.getAttribute("errMsg")!=null ? request.getAttribute("errMsg") : "" %></div>
         </form>
       </div>
     </section>

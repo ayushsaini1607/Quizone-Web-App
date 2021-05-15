@@ -50,7 +50,7 @@ if((request.getSession(false).getAttribute("Admin") == null) )
          <% 
            String fetchedPass = "Password for requested username is : " + request.getAttribute("fetchedPassword");
          %>
-         <div style="color:red"><%= (request.getAttribute("fetchedPassword") == null) ? "" : fetchedPass %></div>
+         <div style="color:green"><%= (request.getAttribute("fetchedPassword") == null) ? "" : fetchedPass %></div>
         <div style="color:red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></div>
       </form>
     </div>

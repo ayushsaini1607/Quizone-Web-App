@@ -32,34 +32,42 @@ public class TakeQuiz extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Inside Take Quiz Servlet-Post");
-        //HttpSession session = request.getSession(false);
-        String quizCode = request.getParameter("quizCode");
-        boolean found = false;
-        Connection con = null;
-    	Statement statement = null;
-    	ResultSet resultSet = null;
-    	
-    	try {
-    		con = DBConnection.createConnection();
-    		statement = con.createStatement();
-    		resultSet = statement.executeQuery("select * from quiz");
-    		
-    		while(resultSet.next()) {
-    			if (quizCode.equals(resultSet.getString("quiz_code"))) {
-    				found = true;
-        			request.setAttribute("quizCode", quizCode);
-    	            request.getRequestDispatcher("/JSP/QPaper.jsp").forward(request, response);
-    				response.sendRedirect(request.getContextPath()+"/JSP/QPaper.jsp");
-    			}
-    		}
-    		if (found == false) {
-	            request.setAttribute("quizErrMessage", "INVALID QUIZ CODE");
-	            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Give-Test.jsp");
-	            requestDispatcher.forward(request, response);
-	            System.out.println("Incorrect Code Fomart");
-	        }
-    	} catch (SQLException E) {
-    		E.printStackTrace();
-    	}
+        HttpSession session = request.getSession(false);
+        if(session==null)
+		  {
+			  request.setAttribute("Message", "Session timed out!");
+			  request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
+		  }
+        else
+        {
+	        String quizCode = request.getParameter("quizCode");
+	        boolean found = false;
+	        Connection con = null;
+	    	Statement statement = null;
+	    	ResultSet resultSet = null;
+	    	
+	    	try {
+	    		con = DBConnection.createConnection();
+	    		statement = con.createStatement();
+	    		resultSet = statement.executeQuery("select * from quiz");
+	    		
+	    		while(resultSet.next()) {
+	    			if (quizCode.equals(resultSet.getString("quiz_code"))) {
+	    				found = true;
+	        			request.setAttribute("quizCode", quizCode);
+	    	            request.getRequestDispatcher("/JSP/QPaper.jsp").forward(request, response);
+	    				response.sendRedirect(request.getContextPath()+"/JSP/QPaper.jsp");
+	    			}
+	    		}
+	    		if (found == false) {
+		            request.setAttribute("quizErrMessage", "INVALID QUIZ CODE");
+		            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Give-Test.jsp");
+		            requestDispatcher.forward(request, response);
+		            System.out.println("Incorrect Code Fomart");
+		        }
+	    	} catch (SQLException E) {
+	    		E.printStackTrace();
+	    	}
+	    }
     }
 }

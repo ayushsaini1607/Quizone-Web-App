@@ -158,6 +158,11 @@ public class Admin implements User {
         			statement=con.prepareStatement(sqlUpdate);
        		        statement.setString(1,changedValue);
        		        statement.setString(2,this.username);
+       		        statement.executeUpdate();
+       		        sqlUpdate = "update username_to_inst_id set username = ? where username = ?";
+       		        statement = con.prepareStatement(sqlUpdate);
+       		        statement.setString(1,changedValue);
+       		        statement.setString(2,this.username);
         			this.setUserName(changedValue); 
         			statement.executeUpdate();
         			if(statement!=null)
@@ -203,13 +208,12 @@ public class Admin implements User {
         		
         		con=DBConnection.createConnection();
         		statement = con.createStatement();
-        		
+        		int i=1;
         		boolean notExist = false;
         		while(!notExist) {
 	            	resultSet = statement.executeQuery("select username from users where username= '" + username + "'");
 	            	if(resultSet.next())
 	            	{
-	            		int i=1;
             		    username = username + i;
             		    i++;
             		    System.out.println("username inside check: " + username);
