@@ -196,7 +196,8 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
                   <th>#</th>
                   <th>Institute ID</th>
                   <th>Participant</th>
-                  <th>Score</th>
+                  <th>Marks Obtained</th>
+                  <th>Total Marks</th>
                 </tr>
               </thead>
               <tbody>
@@ -211,7 +212,8 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
 	                    <td><%= i+1 %></td>
 	                    <td><%= R.getInstituteID() %> </td>
 	                    <td><%= R.getUsername() %> </td>
-	                      <td><%= R.getScore() %></td>
+	                    <td><%= R.getScore() %></td>
+	                    <td><%= R.getTotal() %></td>
 	                    </tr>
                       <%i++;}}%>
               </tbody>

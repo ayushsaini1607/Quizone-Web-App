@@ -66,7 +66,13 @@ public class CreateTest extends HttpServlet {
 	      LocalTime time2 = LocalTime.parse(endTime);
 	      LocalTime time3 = LocalTime.now();
 	      int currtym = time3.getHour()+1;
-	      LocalTime time4 = LocalTime.parse(""+currtym+":00");
+	      LocalTime time4= null;
+	      if(currtym < 10) {
+	    	  time4 = LocalTime.parse("0"+currtym+":00");
+	      }else {
+	    	  time4 = LocalTime.parse(""+currtym+":00"); 
+	      }
+//	      LocalTime time4 = LocalTime.parse(""+currtym+":00");
 	      System.out.println(" Current Time : "+time4);
 	      
 	      if(time4.isAfter(time1) && date1.isEqual(date2)) {

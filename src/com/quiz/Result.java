@@ -4,6 +4,7 @@ public class Result {
 	private String instituteID;
 	private String username;
 	private float score;
+	private float total;
 	
 	public Result() {
 		
@@ -36,5 +37,13 @@ public class Result {
 
 	public void setInstituteID(String instituteID) {
 		this.instituteID = instituteID;
+	}
+
+	public float getTotal() {
+		return total;
+	}
+
+	public void setTotal(float total) {
+		this.total = total;
 	}
 }

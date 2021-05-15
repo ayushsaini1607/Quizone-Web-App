@@ -107,11 +107,13 @@ public class EditQuizServlet extends HttpServlet {
 	        	{
 	        		E.printStackTrace();
 	        	}
-    	if(request.getParameter("result") != null) {
-    		request.getRequestDispatcher("/JSP/EditQuiz.jsp").forward(request, response);
-    	}else if(request.getParameter("addQ") != null) {
+//    	if(request.getParameter("result") != null) {
+    		
+//    	}else 
+    		if(request.getParameter("addQ") != null) {
     		request.getRequestDispatcher("/JSP/questions.jsp").forward(request, response);
     	}
+    		request.getRequestDispatcher("/JSP/EditQuiz.jsp").forward(request, response);
 		
 	}
 
