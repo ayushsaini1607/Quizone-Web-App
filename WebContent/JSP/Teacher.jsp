@@ -74,7 +74,6 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
         final String teach = request.getParameter("username");
         
         session.setAttribute("user", teach);
-        System.out.println("Teacher name : "+teach+" "+request.getAttribute("username"));
         %>
         <%@page import="java.sql.*" %>
       <%

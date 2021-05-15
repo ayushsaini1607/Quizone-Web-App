@@ -37,7 +37,8 @@ public class UpdateQuiz extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Inside UpdateQuiz servlet");
 		HttpSession session = request.getSession(false);
-		
+		String error = null;
+			
 		Connection con=null;
     	Statement statement=null;
     	

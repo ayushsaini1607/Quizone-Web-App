@@ -51,16 +51,18 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
           <div class="form-group">
             <label class="control-label">Test Start time</label>
             <input id="startTime" class="form-control" type="time" placeholder="Enter Test start time" onchange="Compare()" name="startTime">
+            <div style="color:red"><%=(request.getAttribute("errSt") == null) ? "" : request.getAttribute("errSt")%></div>
           </div>
           <div class="form-group">
             <label class="control-label">Test End time</label>
             <input id="endTime" class="form-control" type="time" placeholder="Enter Test end time" onchange="Compare()" name="endTime">
+            <div style="color:red"><%=(request.getAttribute("errTime") == null) ? "" : request.getAttribute("errTime")%></div>
           </div>
           <div class="form-group">   
             <label class="control-label">Test Date</label>
             <input class="form-control" type="date" name="testDate">
+            <div style="color:red"><%=(request.getAttribute("errDate") == null) ? "" : request.getAttribute("errDate")%></div>
           </div>
-          <div style="color:red"><%=(request.getAttribute("errDate") == null) ? "" : request.getAttribute("errDate")%></div>
           <div class="form-group btn-container" >
             <a href="questions.html"><button class="btn btn-primary btn-block" type="submit"><i class="fa fa-chevron-circle-right fa-lg fa-fw" ></i>CONTINUE</button></a>
           </div>

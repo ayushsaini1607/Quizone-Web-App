@@ -43,6 +43,7 @@ public class CreateQuiz extends HttpServlet {
 		System.out.println("Inside Question servlet-post");
 		HttpSession session = request.getSession(false);
 		int correct = 0; 
+		int code=0;
 		ArrayList<Question> question = new ArrayList<Question>();
 		String quest = request.getParameter("question");
 		String[] opt = {request.getParameter("option1"),request.getParameter("option2"),request.getParameter("option3"),request.getParameter("option4")};
@@ -50,7 +51,13 @@ public class CreateQuiz extends HttpServlet {
 			correct = Integer.parseInt(request.getParameter("correct"));
 		}
 		float marks = Float.parseFloat(request.getParameter("marks"));
-		String code = (String)session.getAttribute("quizCode");
+		
+		if((String)session.getAttribute("quizCode") != null) {
+			code = Integer.parseInt((String)session.getAttribute("quizCode"));
+		}else if(session.getAttribute("addQuest") != null) {
+			code = Integer.parseInt(session.getAttribute("addQuest").toString());
+		}
+//		System.out.println(" Code : "+code);
 		question.add(new Question(quest,opt,correct,marks));
 		
 		Connection con=null;

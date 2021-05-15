@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import com.login.util.DBConnection;
 import com.users.Teacher;
@@ -61,6 +62,25 @@ public class CreateTest extends HttpServlet {
 	      
 	      LocalDate date1 = java.time.LocalDate.now();
 	      LocalDate date2 = LocalDate.parse(testDate);
+	      LocalTime time1 = LocalTime.parse(startTime);
+	      LocalTime time2 = LocalTime.parse(endTime);
+	      LocalTime time3 = LocalTime.now();
+	      int currtym = time3.getHour()+1;
+	      LocalTime time4 = LocalTime.parse(""+currtym+":00");
+	      System.out.println(" Current Time : "+time4);
+	      
+	      if(time4.isAfter(time1) && date1.isEqual(date2)) {
+	    	  String errSt = "Start Time should be atleast 1 hour after current Time!";
+//	    	  System.out.println("Error message = "+errSt);
+	          request.setAttribute("errSt", errSt);
+	          request.getRequestDispatcher("/JSP/create-test.jsp").forward(request, response);
+	      }else {
+	      if(time1.isAfter(time2) || time1.equals(time2)) {
+	    	  String errTime = "End Time can't be before or equal to Start Time!";
+//	    	    System.out.println("Error message = "+errTime);
+	            request.setAttribute("errTime", errTime);
+	            request.getRequestDispatcher("/JSP/create-test.jsp").forward(request, response);
+	      }else {
 	      if(date1.isBefore(date2) || date1.isEqual(date2)) {
 	    	  try {
 	        		
@@ -81,14 +101,14 @@ public class CreateTest extends HttpServlet {
 	        		E.printStackTrace();
 	        	}
 	      }else {
-	    	    String error = "Please Enter Valid Date!";
-	    	    System.out.println("Error message = "+error);
+	    	    String error = "Please Select a Valid Date!";
+//	    	    System.out.println("Error message = "+error);
 	            request.setAttribute("errDate", error);
 	            request.getRequestDispatcher("/JSP/create-test.jsp").forward(request, response);
 	      }
 	      
-	        	
-		 
+	      }	
+	   }
 	}
 
 }

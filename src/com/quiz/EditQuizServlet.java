@@ -101,13 +101,18 @@ public class EditQuizServlet extends HttpServlet {
 				rstSet.close();
 			}
     		result.close();
-    		
-    		
+//    		System.out.println(" EditQuizServlet Code : "+code);
+    		session.setAttribute("addQuest", code);
         	} catch(SQLException E)
 	        	{
 	        		E.printStackTrace();
 	        	}
-		request.getRequestDispatcher("/JSP/EditQuiz.jsp").forward(request, response);
+    	if(request.getParameter("result") != null) {
+    		request.getRequestDispatcher("/JSP/EditQuiz.jsp").forward(request, response);
+    	}else if(request.getParameter("addQ") != null) {
+    		request.getRequestDispatcher("/JSP/questions.jsp").forward(request, response);
+    	}
+		
 	}
 
 }

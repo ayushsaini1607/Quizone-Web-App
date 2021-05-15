@@ -90,10 +90,6 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
     <aside class="app-sidebar">
       <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="<%= request.getContextPath() %>/images/logo.png" width="50" alt="User Image">
         <div>
-        <%
-        //String one = request.getAttribute("user");
-        System.out.println("profile name : "+ session.getAttribute("user"));
-        %>
           <p class="app-sidebar__user-name"><%=session.getAttribute("Tea") %></p>
           <p class="app-sidebar__user-designation">Faculty</p>
         </div>
@@ -180,6 +176,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
                   </select>
                   <!-- <input class="form-control "  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="code_edit" required>  -->
                   <button class="btn btn-primary"  style="margin-right:25px" name="result" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Search Quiz</button>
+                  <button class="btn btn-primary" name="addQ" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>ADD Questions</button>
            </div>
          </form>
       </div>
@@ -267,8 +264,20 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
     <script src="<%=request.getContextPath()%>/js/main.js"></script><!-- Dashboard ka dropdown -->
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/dataTables.bootstrap.min.js"></script>
-<!--    <script type="text/javascript">$('#sampleTable').DataTable();</script> -->
-    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
+    <script type="text/javascript">$('#editTable').DataTable();</script> 
+    
+<!--     <script type="text/javascript">
+      var x = document.getElementById('addQ');
+      var rowCount = $('editTable').length;
+      if (rowCount == 0){
+    	  x.style.visibility = 'hidden';
+      }else{
+ 		 x.style.visibility = 'visible';
+      }
+        
+   </script>  -->
+
+<!--    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
@@ -294,6 +303,6 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
 		        $('.btn_pdf').attr("class","btn btn-primary");
 
 			} );
-    </script>  
+    </script>  -->
 </body>
 </html>
