@@ -6,7 +6,7 @@
                 
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
                 
-        <property name="java-output-path" value="/Quizone-Local/build/classes"/>
+        <property name="java-output-path" value="/QuizoneWebApp/build/classes"/>
         <property name="context-root" value="QuizoneWebApp"/>
             
     </wb-module>
