@@ -148,7 +148,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
                 </div>
                 <div class="form-group">
                 	<span style="color:red"><%=(request.getAttribute("pErrMessage") == null) ? "" : request.getAttribute("pErrMessage")%></span>
-                	<span style="color:red"><%=(request.getAttribute("pConfirmMessage") == null) ? "" : request.getAttribute("pConfirmMessage")%></span>
+                	<span style="color:green"><%=(request.getAttribute("pConfirmMessage") == null) ? "" : request.getAttribute("pConfirmMessage")%></span>
                 </div>
                 <div class="form-group">
                   <button class="btn btn-primary" name="Edit Password" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>UPDATE PASSWORD</button>

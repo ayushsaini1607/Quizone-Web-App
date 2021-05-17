@@ -34,6 +34,7 @@ final public class Password {
       
       public String generatePassword()
       {
+    	  System.out.println("Start of generate password in password class");
     	  int length = 8;
      	  String capitalCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
           String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
@@ -51,6 +52,7 @@ final public class Password {
           for(int i = 4; i< length ; i++) {
              pass[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
           }
+          System.out.println(String.valueOf(pass));
           if(String.valueOf(pass)!=null)
             return String.valueOf(pass);
           else

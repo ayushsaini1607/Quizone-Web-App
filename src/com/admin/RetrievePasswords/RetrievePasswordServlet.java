@@ -25,80 +25,87 @@ public class RetrievePasswordServlet extends HttpServlet{
 	{
 		  System.out.println("Inside retrieve password servlet-post");
 		  HttpSession session = request.getSession(false);
-		  
-		  String username=(String)session.getAttribute("Admin");		 
-		  session.setAttribute("username", username);
-		  session.setAttribute("Admin",username);
-		  System.out.println((String)session.getAttribute("Admin"));
-		  System.out.println((String)session.getAttribute("username"));
-		  
-		  String searchUsername = request.getParameter("searchUsername");
-		  String verifyPass = request.getParameter("verifyPass");
-		  boolean authorised = false;
-		  
-		  Connection con=null;
-	      Statement statement=null;
-	      ResultSet resultSet=null;
-	      
-	      try {
-	    		con=DBConnection.createConnection();
-	    		statement=con.createStatement();
-	    		resultSet=statement.executeQuery("Select password from users where username='"
-	    				+ username + "'");
-	    		
-	    		if(resultSet.next())
-	    		{
-		    		if(verifyPass.equals(resultSet.getString("password")))
-		    		{
-		    			authorised = true;
-		    		}
-		    		else
-		    		{
-		    			request.setAttribute("errMessage","Authentication failed:Invalid password!");
-		    		}
-	    		}
-	    		if(resultSet!=null)
-	    			resultSet.close();
-	    		if(statement!=null)
-					statement.close();
-				if(con!=null)
-					con.close();
-	    	}
-	    	catch(SQLException E)
-	    	{
-	    		E.printStackTrace();
-	    	}
-	      
-	      System.out.println("Authorised = " + authorised);
-	      if(authorised)
-	      {
-		      con=null;
-		      statement=null;
-		      resultSet=null;
+		  if(session==null)
+		  {
+			  request.setAttribute("Message", "Session timed out!");
+			  request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
+		  }
+		  else
+		  {
+			  String username=(String)session.getAttribute("Admin");		 
+			  session.setAttribute("username", username);
+			  session.setAttribute("Admin",username);
+			  System.out.println((String)session.getAttribute("Admin"));
+			  System.out.println((String)session.getAttribute("username"));
+			  
+			  String searchUsername = request.getParameter("searchUsername");
+			  String verifyPass = request.getParameter("verifyPass");
+			  boolean authorised = false;
+			  
+			  Connection con=null;
+		      Statement statement=null;
+		      ResultSet resultSet=null;
 		      
 		      try {
 		    		con=DBConnection.createConnection();
 		    		statement=con.createStatement();
 		    		resultSet=statement.executeQuery("Select password from users where username='"
-		    				+ searchUsername + "' and userType!='admin'");
+		    				+ username + "'");
+		    		
 		    		if(resultSet.next())
 		    		{
-		    			String fetchedPass = resultSet.getString("password");
-			    		System.out.println("Fetched pass = " + fetchedPass);
-		    			request.setAttribute("fetchedPassword",fetchedPass);
+			    		if(verifyPass.equals(resultSet.getString("password")))
+			    		{
+			    			authorised = true;
+			    		}
+			    		else
+			    		{
+			    			request.setAttribute("errMessage","Authentication failed:Invalid password!");
+			    		}
 		    		}
-		    		else
-		    		{
-		    			request.setAttribute("errMessage","Couldn't fetch password!");
-		    		}
+		    		if(resultSet!=null)
+		    			resultSet.close();
+		    		if(statement!=null)
+						statement.close();
+					if(con!=null)
+						con.close();
 		    	}
 		    	catch(SQLException E)
 		    	{
 		    		E.printStackTrace();
 		    	}
-	     } 
-		  
-		
-	     request.getRequestDispatcher("JSP/RetrievePassword.jsp").forward(request, response);	  
+		      
+		      System.out.println("Authorised = " + authorised);
+		      if(authorised)
+		      {
+			      con=null;
+			      statement=null;
+			      resultSet=null;
+			      
+			      try {
+			    		con=DBConnection.createConnection();
+			    		statement=con.createStatement();
+			    		resultSet=statement.executeQuery("Select password from users where username='"
+			    				+ searchUsername + "' and userType!='admin'");
+			    		if(resultSet.next())
+			    		{
+			    			String fetchedPass = resultSet.getString("password");
+				    		System.out.println("Fetched pass = " + fetchedPass);
+			    			request.setAttribute("fetchedPassword",fetchedPass);
+			    		}
+			    		else
+			    		{
+			    			request.setAttribute("errMessage","Couldn't fetch password: User doesn't exist or has admin priveleges!");
+			    		}
+			    	}
+			    	catch(SQLException E)
+			    	{
+			    		E.printStackTrace();
+			    	}
+		     } 
+			  
+			
+		     request.getRequestDispatcher("JSP/RetrievePassword.jsp").forward(request, response);	  
+		  }
 	}
 }

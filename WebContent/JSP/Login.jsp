@@ -38,7 +38,7 @@
           <div class="form-group btn-container">
             <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-sign-in fa-lg fa-fw"></i>SIGN IN</button>
           </div>
-          <div style="color:red"><%=(request.getAttribute("errMessage") == null) ? "" : request.getAttribute("errMessage")%></div>
+          <div style="color:red"><%=(request.getAttribute("Message") == null) ? "" : request.getAttribute("Message")%></div>
         </form>
     </section>
     <!-- Essential javascripts for application to work-->

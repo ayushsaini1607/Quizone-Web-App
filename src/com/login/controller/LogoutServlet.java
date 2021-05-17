@@ -19,10 +19,19 @@ public class LogoutServlet extends HttpServlet
         {
         	System.out.println("Inside logout servlet");
             session.invalidate(); //removes all session attributes bound to the session
-            request.setAttribute("errMessage", "You have logged out successfully");
+ 
+             request.setAttribute("Message","You have logged out successfully!");
+            
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Login.jsp");
             requestDispatcher.forward(request, response);
             System.out.println("Logged out");
         }
-    }
+        else
+        {
+        	request.setAttribute("Message","Session Timed Out!");
+        	RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Login.jsp");
+            requestDispatcher.forward(request, response);
+            System.out.println("Logged out");     
+        }
+    } 
 }

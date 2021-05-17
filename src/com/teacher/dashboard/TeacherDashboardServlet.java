@@ -34,9 +34,17 @@ public class TeacherDashboardServlet extends HttpServlet {
 		System.out.println("Inside get of teacher-dashboard");
 		System.out.println("Inside teacher dashboard servlet-get");
 		HttpSession session = request.getSession(false);
-		System.out.println((String)session.getAttribute("Teacher")); 
-		request.setAttribute("username",(String)session.getAttribute("Teacher"));
-		request.getRequestDispatcher("/JSP/Teacher.jsp").forward(request, response);
+		if(session==null)
+		  {
+			  request.setAttribute("Message", "Session timed out!");
+			  request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
+		  }
+		else
+		{
+			System.out.println((String)session.getAttribute("Teacher")); 
+			request.setAttribute("username",(String)session.getAttribute("Teacher"));
+			request.getRequestDispatcher("/JSP/Teacher.jsp").forward(request, response);
+		}
 	}
 
 	/**
@@ -44,22 +52,30 @@ public class TeacherDashboardServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Inside admin dashboard servlet-post");
+		  System.out.println("Inside admin dashboard servlet-post");
 		  HttpSession session = request.getSession(false);
-		  System.out.println((String)session.getAttribute("Teacher"));
-
-		  
-		  if(request.getParameter("View Profile")!=null)
-		  {		  
-			  Teacher teacher = Teacher.search((String)session.getAttribute("Teacher"));
-			  request.setAttribute("fname",teacher.getFname());
-			  request.setAttribute("lname", teacher.getLname());
-			  request.setAttribute("email", teacher.getemail());
-			  request.setAttribute("username", (String)session.getAttribute("Teacher"));
-			  request.setAttribute("inst_id", teacher.getInstituteId());
-			  request.getRequestDispatcher("/JSP/TeacherProfile.jsp").forward(request, response); 
-//			  request.getRequestDispatcher("/view-admin-profile").forward(request, response); 
+		  if(session==null)
+		  {
+			  request.setAttribute("Message", "Session timed out!");
+			  request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
 		  }
+		  else
+		  {
+			  System.out.println((String)session.getAttribute("Teacher"));
+	
+			  
+			  if(request.getParameter("View Profile")!=null)
+			  {		  
+				  Teacher teacher = Teacher.search((String)session.getAttribute("Teacher"));
+				  request.setAttribute("fname",teacher.getFname());
+				  request.setAttribute("lname", teacher.getLname());
+				  request.setAttribute("email", teacher.getemail());
+				  request.setAttribute("username", (String)session.getAttribute("Teacher"));
+				  request.setAttribute("inst_id", teacher.getInstituteId());
+				  request.getRequestDispatcher("/JSP/TeacherProfile.jsp").forward(request, response); 
+	//			  request.getRequestDispatcher("/view-admin-profile").forward(request, response); 
+			  }
+		}
 	}
 
 }

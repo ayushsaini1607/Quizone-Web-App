@@ -144,25 +144,14 @@ public class Student implements User {
         	return false;     		
         }
         
-        public void edit(String changedValue,boolean UsernameOrPassword)
+        public void edit(String changedValue)
         {
         	Connection con=null;
         	PreparedStatement statement=null;
         	
-        	try {
-        		
+        	try {        		
         		con=DBConnection.createConnection();
-        		if(UsernameOrPassword)
-        		{
-        			String sqlUpdate="update users set username= ? where username= ?";
-        			statement=con.prepareStatement(sqlUpdate);
-       		        statement.setString(1,changedValue);
-       		        statement.setString(2,this.username);
-        			this.setUserName(changedValue); 
-        			statement.executeUpdate();
-        		}
-        		else
-            	{
+        		
         			
         			String sqlUpdate="update users set password= ? where username= ?";
         			statement=con.prepareStatement(sqlUpdate);
@@ -170,7 +159,6 @@ public class Student implements User {
        		        statement.setString(2,this.username);
             		this.setPassword(changedValue);
             		statement.executeUpdate();
-            	}
         		if(statement!=null)
     				statement.close();
     			if(con!=null)
@@ -234,6 +222,7 @@ public class Student implements User {
         public void generatePassword()
         {
         	password.setPassword(password.generatePassword());
+        	System.out.println("Generated password = " + password.getPassword());
         }
         
         public boolean writeToDB(boolean update)
