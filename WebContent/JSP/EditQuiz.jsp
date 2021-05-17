@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="<%=request.getContextPath()%>/images/favicon.png" type="image/png">
 </head>
 <% //In case, if Teacher session is not set, redirect to Login page
 if((request.getSession(false).getAttribute("Teacher")== null) )
@@ -185,7 +186,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
           <div class="tile">
             <div class="tile-body">
             <div class="table-responsive">
-            <form name="edit-users" action="<%=request.getContextPath()%>/UpdateQuiz" method="get">
+            <form name="edit-users" action="<%=request.getContextPath()%>/UpdateQuiz" onsubmit="return myFunction()" method="get">
             <table class="table table-hover table-bordered" id="editTable">
               <thead>
                     <tr>
@@ -214,34 +215,29 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
 	                    <tr>
 	                      <td><textarea name="quiz_id" class="form-control" type="text" readonly><%= Q.getId()%></textarea></td>
 	                      <td>
-	                        <textarea name="questionTitle" class="form-control" type="text" ><%= Q.getQuestionTitle() %></textarea>
+	                        <textarea id="question" name="questionTitle" class="form-control" type="text" ><%= Q.getQuestionTitle() %></textarea>
 	                      </td>
 	                      <td>
-	                        <textarea name="option1" class="form-control" type="text" ><%= opts[0] %></textarea>
+	                        <textarea id="A" name="option1" class="form-control" type="text" ><%= opts[0] %></textarea>
 	                      </td>
 	                      <td>
-	                        <textarea name="option2" class="form-control" type="text" ><%= opts[1] %></textarea>
+	                        <textarea id="B" name="option2" class="form-control" type="text" ><%= opts[1] %></textarea>
 	                      </td>
 	                      <td>
-	                        <textarea name="option3" class="form-control" type="text" ><%= opts[2] %></textarea>
+	                        <textarea id="C" name="option3" class="form-control" type="text" ><%= opts[2] %></textarea>
 	                      </td>
 	                      <td>
-	                        <textarea name="option4" class="form-control" type="text" ><%= opts[3] %></textarea>
+	                        <textarea id="D" name="option4" class="form-control" type="text" ><%= opts[3] %></textarea>
 	                      </td>
 	                      <td>
-	                      	  <!--  <textarea name="answer" class="form-control" type="text" ><%= Q.getCorrectOption() %></textarea> -->
-	                      	  <select name="answer" class="form-control">
-	                      	     <option value="1" <%= Q.getCorrectOption()==1 ? "selected" : "" %>>A</option>
-	                      	     <option value="2" <%= Q.getCorrectOption()==2 ? "selected" : "" %>>B</option>
-	                      	     <option value="3" <%= Q.getCorrectOption()==3 ? "selected" : "" %>>C</option>
-	                      	     <option value="4" <%= Q.getCorrectOption()==4 ? "selected" : "" %>>D</option>    
-	                      	  </select>
+	                      	<textarea name="answer" id="correct" class="form-control" type="text" ><%= Q.getCorrectOption() %></textarea> 
+	                      	
 	                      </td>
 	                      <td>
-	                      	  <textarea name="marks" class="form-control" type="text" ><%= Q.getWeightage() %></textarea>
+	                      	  <textarea id="mark" name="marks" class="form-control" type="text" ><%= Q.getWeightage() %></textarea>
 	                      </td>
 	                      <td>
-	                            <button class="btn btn-primary" type="submit" name="updateQuiz" value="<%=i%>" >Update</button>
+	                            <button class="btn btn-primary" style="margin-bottom:5px" type="submit" name="updateQuiz" value="<%=i%>" >Update</button>
 	                            <br>
 	                            <button class="btn btn-primary" type="submit" name="deleteQuiz" value="<%=i%>" >Delete</button>
 	                         
@@ -264,20 +260,44 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
     <script src="<%=request.getContextPath()%>/js/main.js"></script><!-- Dashboard ka dropdown -->
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript">$('#editTable').DataTable();</script> 
-    
-<!--     <script type="text/javascript">
-      var x = document.getElementById('addQ');
-      var rowCount = $('editTable').length;
-      if (rowCount == 0){
-    	  x.style.visibility = 'hidden';
-      }else{
- 		 x.style.visibility = 'visible';
-      }
-        
-   </script>  -->
+ <!--   <script type="text/javascript">$('#editTable').DataTable();</script> -->
+    <script>
+    function myFunction() {
+	var correct = document.getElementById("correct").value;
+	var quest = document.getElementById("question").value;
+	var opta = document.getElementById("A").value;
+	var optb = document.getElementById("B").value;
+	var optc = document.getElementById("C").value;
+	var optd = document.getElementById("D").value;
+	var mark = document.getElementById("mark").value;
+	submitOK = "true";
+	
+	if (quest.length <= 0) {
+	    alert("Question Field cannot be EMPTY. Please Write something OR DELETE that question.");
+	    submitOK = "false";
+	  }
+	if (opta.length <= 0 || optb.length <= 0 || optc.length <= 0 || optd.length <= 0) {
+	    alert("Option Field cannot be EMPTY. Please Write something OR DELETE that question.");
+	    submitOK = "false";
+	  }
+	
+	if (isNaN(mark) || mark <= 0) {
+	    alert(" Weightage of a question must be a postive number & greater than 0.");
+	    submitOK = "false";
+	  }
+	
+	if (isNaN(correct) || correct< 1 || correct > 4) {
+	    alert("The Correct Answer must be a number between 1 and 4. Where 1-A, 2-B, 3-C & 4-D.");
+	    submitOK = "false";
+	  }
+	
+	if (submitOK == "false") {
+	    return false;
+	  }
+	}
+	</script>
 
-<!--    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
+    <script src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script> 
     <script src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script> 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
@@ -301,8 +321,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
 			    });
 		        
 		        $('.btn_pdf').attr("class","btn btn-primary");
-
 			} );
-    </script>  -->
+    </script> 
 </body>
 </html>

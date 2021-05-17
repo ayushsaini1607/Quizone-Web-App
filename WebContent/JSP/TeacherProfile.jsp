@@ -15,6 +15,7 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/main.css">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="<%=request.getContextPath()%>/images/favicon.png" type="image/png">
   </head>
 <% //In case, if Admin session is not set, redirect to Login page
 if((request.getSession(false).getAttribute("Teacher")== null) )
