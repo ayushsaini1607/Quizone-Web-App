@@ -15,7 +15,7 @@
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Favicon  -->
-    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/images/favicon.png">
+    <link rel="icon" href="<%=request.getContextPath()%>/images/favicon.png" type="image/png">
 </head>
 <% //In case, if Student session is not set, redirect to Login page
 if((request.getSession(false).getAttribute("Student") == null) )
@@ -36,7 +36,7 @@ if((request.getSession(false).getAttribute("Student") == null) )
           <ul class="dropdown-menu settings-menu dropdown-menu-right">
           </ul>
         </li>
-        <!-- <li ><a class="app-nav__item" ><i></i><input type="text" value="Usernames"  disabled="true"></a> -->
+        <!-- <li ><a class="app-nav__item" ><i></i><input type="text" value="Usernames" disabled="true"></a> -->
       </ul>
     </header>
     
@@ -116,29 +116,31 @@ if((request.getSession(false).getAttribute("Student") == null) )
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"testproject", userId, password);
 		statement=connection.createStatement();
 		resultSet = statement.executeQuery("SELECT * FROM quiz");
-		int count = 0;
 		while(resultSet.next()){
 			if(resultSet.getString("quiz_code").equals(request.getAttribute("quizCode"))) {
+				session.setAttribute("quizCode", resultSet.getString("quiz_code"));
 	%>
-        
+        <form method = post action="<%= request.getContextPath() %>/SaveAnswer">
         <div class="container-quiz mt-sm-5 my-1">
           <div class="question ml-sm-5 pl-sm-5 pt-2">
-            <div class="py-2 h5"><b><%=resultSet.getString("questionTitle") %></b></div>
+            <div class="py-2 h5"><b><%=resultSet.getString("questionTitle") %></b><%session.setAttribute("question", resultSet.getString("questionTitle")); %></div>
             <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-            <label class="options"><%=resultSet.getString("option1") %> <input type="radio" name="radio"> <span class="checkmark"></span> </label>
-            <label class="options"><%=resultSet.getString("option2") %> <input type="radio" name="radio"> <span class="checkmark"></span> </label>
-            <label class="options"><%=resultSet.getString("option3") %> <input type="radio" name="radio"> <span class="checkmark"></span> </label>
-            <label class="options"><%=resultSet.getString("option4") %> <input type="radio" name="radio"> <span class="checkmark"></span> </label>
+            <label class="options"><%=resultSet.getString("option1") %> <input type="radio" name="radio1"> <span class="checkmark"></span> </label>
+            <label class="options"><%=resultSet.getString("option2") %> <input type="radio" name="radio2"> <span class="checkmark"></span> </label>
+            <label class="options"><%=resultSet.getString("option3") %> <input type="radio" name="radio3"> <span class="checkmark"></span> </label>
+            <label class="options"><%=resultSet.getString("option4") %> <input type="radio" name="radio4"> <span class="checkmark"></span> </label>
             </div>
             </div>
+            <%session.setAttribute("answer", resultSet.getString("answer")); %>
+            <%session.setAttribute("marks", resultSet.getString("marks")); %>
             <div class="d-flex align-items-center pt-3">
               <!-- <div id="prev"> <button class="btn btn-pri">Previous</button> </div>  -->
-              <div class="ml-auto mr-sm-5"> <button class="btn btn-succ">Submit</button> </div>
+              <div class="ml-auto mr-sm-5"> <button class="btn btn-succ" type = "submit">Submit</button> </div>
             </div>
           </div>
-          
+          </form>
     <% 
-			}
+    		}
 		}
 	} catch (Exception e) {
 		e.printStackTrace();
