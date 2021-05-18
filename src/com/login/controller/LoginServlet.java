@@ -68,7 +68,7 @@ public class LoginServlet extends HttpServlet {
 	        else
 	        {
 	            System.out.println("Error message = "+userValidate);
-	            request.setAttribute("errMessage", userValidate);
+	            request.setAttribute("Message", userValidate);
 	 
 	            request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
 	        }

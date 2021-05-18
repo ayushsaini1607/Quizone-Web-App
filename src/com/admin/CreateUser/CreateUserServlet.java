@@ -16,6 +16,7 @@ import com.users.Teacher;
 import com.login.util.DBConnection;
 import com.users.Admin;
 import com.users.Student;
+import com.validationMethods.ValidateInput;
 
 
 public class CreateUserServlet extends HttpServlet{
@@ -44,6 +45,27 @@ public class CreateUserServlet extends HttpServlet{
 			  String email = request.getParameter("email");
 			  String userType = request.getParameter("user");
 			  String instituteId = request.getParameter("inst_id");
+			  
+			  if(!ValidateInput.isAlpha(fname))
+			  {
+				  request.setAttribute("errMsg", "First Name should only contain alphabets!");
+				  request.getRequestDispatcher("JSP/create-account.jsp").forward(request, response);	 
+				  return;
+			  }
+			  
+			  if(!ValidateInput.isAlpha(lname))
+			  {
+				  request.setAttribute("errMsg", "Last Name should only contain alphabets!");
+				  request.getRequestDispatcher("JSP/create-account.jsp").forward(request, response);	 
+				  return;
+			  }
+				  
+			  if(ValidateInput.hasSpecialCharacters(instituteId))
+			  {
+				  request.setAttribute("errMsg", "Institute ID cannot contain special characters!");
+				  request.getRequestDispatcher("JSP/create-account.jsp").forward(request, response);	 
+				  return;
+			  }
 			  
 			  session.setAttribute("username", username);
 			  session.setAttribute("Admin",username);

@@ -62,15 +62,20 @@ public class EditAdminDetailsServlet extends HttpServlet{
 			        		
 			        		if(resultSet.next())
 			        		{
-			        			request.setAttribute("uErrMessage","Couldn't change username: Username already exists!");
+			        			System.out.println("Current username when checking new username exists: " + resultSet.getString("username"));
+			        			System.out.println("New username when checking new username exists: " + request.getParameter("new_username"));
+			        			if(resultSet.getString("username").equals(request.getParameter("new_username")))
+			        			{
+			        				request.setAttribute("uErrMessage","Couldn't change username: Username already exists!");
+			        				request.getRequestDispatcher("JSP/ViewAdminProfile.jsp").forward(request, response);	
+				        			return;
+			        			}
 			        			if(resultSet!=null)
 					    			resultSet.close();
 					    		if(statement!=null)
 									statement.close();
 								if(con!=null)
 									con.close();
-								request.getRequestDispatcher("JSP/ViewAdminProfile.jsp").forward(request, response);	
-			        			return;
 			        		}
 			        	} catch(SQLException E)
 			        	{

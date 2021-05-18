@@ -143,7 +143,7 @@ if((request.getSession(false).getAttribute("Admin")== null) )
                 </div>
                 <div class="form-group">
                    <span style="color:red"><%=(request.getAttribute("uErrMessage") == null) ? "" : request.getAttribute("uErrMessage")%></span>
-                   <span style="color:red"><%=(request.getAttribute("uConfirmMessage") == null) ? "" : request.getAttribute("uConfirmMessage")%></span>
+                   <span style="color:green"><%=(request.getAttribute("uConfirmMessage") == null) ? "" : request.getAttribute("uConfirmMessage")%></span>
                 </div>
                 <div class="form-group">
                   <button class="btn btn-primary" name="Edit Username" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>UPDATE USERNAME</button>
