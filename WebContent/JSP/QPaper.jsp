@@ -94,8 +94,12 @@ if((request.getSession(false).getAttribute("Student") == null) )
 	<%@page import="java.sql.ResultSet"%>
 	<%@page import="java.sql.Statement"%>
 	<%@page import="java.sql.Connection"%>
+	<%@page import="java.util.*" %>
+	<%@page import="com.quiz.Question" %>
 
 	<%
+	ArrayList <Question> questions = new ArrayList<Question>();
+	
 	String id = request.getParameter("userId");
 	String userId = "root";
 	String password = "Ayush@123";
@@ -116,32 +120,63 @@ if((request.getSession(false).getAttribute("Student") == null) )
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"testproject", userId, password);
 		statement=connection.createStatement();
 		resultSet = statement.executeQuery("SELECT * FROM quiz");
-		while(resultSet.next()){
+		
+		while(resultSet.next()) {
 			if(resultSet.getString("quiz_code").equals(request.getAttribute("quizCode"))) {
-				session.setAttribute("quizCode", resultSet.getString("quiz_code"));
-	%>
-        <form method = post action="<%= request.getContextPath() %>/SaveAnswer">
-        <div class="container-quiz mt-sm-5 my-1">
-          <div class="question ml-sm-5 pl-sm-5 pt-2">
-            <div class="py-2 h5"><b><%=resultSet.getString("questionTitle") %></b><%session.setAttribute("question", resultSet.getString("questionTitle")); %></div>
-            <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-            <label class="options"><%=resultSet.getString("option1") %> <input type="radio" name="radio1"> <span class="checkmark"></span> </label>
-            <label class="options"><%=resultSet.getString("option2") %> <input type="radio" name="radio2"> <span class="checkmark"></span> </label>
-            <label class="options"><%=resultSet.getString("option3") %> <input type="radio" name="radio3"> <span class="checkmark"></span> </label>
-            <label class="options"><%=resultSet.getString("option4") %> <input type="radio" name="radio4"> <span class="checkmark"></span> </label>
-            </div>
-            </div>
-            <%session.setAttribute("answer", resultSet.getString("answer")); %>
-            <%session.setAttribute("marks", resultSet.getString("marks")); %>
-            <div class="d-flex align-items-center pt-3">
-              <!-- <div id="prev"> <button class="btn btn-pri">Previous</button> </div>  -->
-              <div class="ml-auto mr-sm-5"> <button class="btn btn-succ" type = "submit">Submit</button> </div>
-            </div>
-          </div>
-          </form>
-    <% 
-    		}
+				session.setAttribute("quizCodeSQL", resultSet.getString("quiz_code"));
+				Question question = new Question();
+				question.setId(Integer.parseInt(resultSet.getString("quiz_id")));
+				question.setQuestionTitle(resultSet.getString("questionTitle"));
+				String[] opt = {resultSet.getString("option1"),resultSet.getString("option2"),resultSet.getString("option3"),resultSet.getString("option4")};
+				question.setOptions(opt);
+				question.setCorrectOption(Integer.parseInt(resultSet.getString("answer")));
+				question.setWeightage(Float.parseFloat(resultSet.getString("marks")));
+				questions.add(question);
+			}
 		}
+		
+		session.setAttribute("questionBank", questions);
+	%>
+	<form method = post action="<%= request.getContextPath() %>/SaveAnswer">
+	<%
+		int var = 0;
+		for(Question i:questions) {
+	%>
+       <div class="container-quiz mt-sm-5 my-1">
+
+    <div class="question ml-sm-5 pl-sm-5 pt-2">
+
+    <div class="py-2 h5"><b><%=i.getQuestionTitle() %></b></div>
+
+    <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
+
+    <label class="options"><%=i.getOptions()[0] %> <input type="radio" name="options<%=var%>" value = "1"> <span class="checkmark"></span> </label>
+
+    <label class="options"><%=i.getOptions()[1] %> <input type="radio" name="options<%=var%>" value = "2"> <span class="checkmark"></span> </label>
+
+    <label class="options"><%=i.getOptions()[2] %> <input type="radio" name="options<%=var%>" value = "3"> <span class="checkmark"></span> </label>
+
+    <label class="options"><%=i.getOptions()[3] %> <input type="radio" name="options<%=var%>" value = "4"> <span class="checkmark"></span> </label>
+
+    </div>
+
+    </div>
+
+    <div class="d-flex align-items-center pt-3">
+
+    <!-- <div id="prev"><button class="btn btn-pri"> Previous </button></div> -->
+
+    </div>
+
+</div>
+    <% 
+    	var++;
+		}
+	%>
+	<div class="ml-auto mr-sm-5" style = "margin: auto; width: 50%; padding: 10px;"> <button class="btn btn-succ" type = "submit">Submit</button> </div>
+	</form>
+	
+	<%
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

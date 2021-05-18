@@ -28,7 +28,7 @@ if((request.getSession(false).getAttribute("Student") == null) )
   </section>
   <section class="login-content">
     <div class="logo">
-      <h1>Quizone</h1> 
+     <h1>Quizone</h1> 
     </div>
     <div class="test-box">
       <form class="login-form " method="post" action="<%= request.getContextPath() %>/TakeQuiz">
@@ -41,6 +41,7 @@ if((request.getSession(false).getAttribute("Student") == null) )
           <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-sign-in fa-lg fa-fw"></i>START QUIZ</button>
         </div>
         <div style="color:red"><%=(request.getAttribute("quizErrMessage") == null) ? "" : request.getAttribute("quizErrMessage")%></div>
+        <div style="color:green"><%=(request.getAttribute("quizSccMessage") == null	) ? "" : request.getAttribute("quizSccMessage")%></div>
       </form>
     </div>
   </section>
@@ -50,12 +51,5 @@ if((request.getSession(false).getAttribute("Student") == null) )
   <script src="<%=request.getContextPath()%>/js/popper.min.js"></script><!-- Notification ka dropdown -->
   <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
   <script src="<%=request.getContextPath()%>/js/main.js"></script><!-- Dashboard ka dropdown -->
-  <script type="text/javascript">
-    // Mre Details Page Flipbox control
-    $('.login-content [data-toggle="flip"]').click(function() {
-      $('.login-box').toggleClass('flipped');
-      return false;
-    });
-  </script>
 </body>
 </html>

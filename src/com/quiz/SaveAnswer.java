@@ -6,9 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.*;
 
 import com.login.util.DBConnection;
 import com.users.Teacher;
+import com.quiz.Question;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -38,55 +40,49 @@ public class SaveAnswer extends HttpServlet {
 			  request.setAttribute("Message", "Session timed out!");
 			  request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
 		  }
-        else
-        {
-        	String quizCode = (String)session.getAttribute("quizCode");
-        	String question = (String)session.getAttribute("question");
-	        int correctAnswer = Integer.parseInt((String)session.getAttribute("answer"));
-	        float marksForAnswer = Float.parseFloat((String)session.getAttribute("marks"));
+        else {
+        	ArrayList<Question> questionBank = (ArrayList<Question>)session.getAttribute("questionBank");
+        	int size = questionBank.size();
+        	
+        	int [] answers = new int[size];
+        	for(int i = 0; i < size; i++) {
+        		if (request.getParameter("options"+i) == null)
+        			answers[i] = -1;
+        		else
+        			answers[i] = Integer.parseInt(request.getParameter("options"+i));
+        	}
+        	
+        	int count = 0;
+        	float totalMarks = 0.0f;
+        	float marks = 0.0f;
+        	for (Question i:questionBank) {
+        		if (i.getCorrectOption() == answers[count]) {
+        			marks += i.getWeightage();
+        		}
+        		count++;
+        		totalMarks += i.getWeightage();
+        	}
 	        
-	        String op1 = request.getParameter("radio1");
-	        String op2 = request.getParameter("radio2");
-	        String op3 = request.getParameter("radio3");
-	        String op4 = request.getParameter("radio4");
-	        
-	        String Answer = "0";
-	        float Marks = 0.0f;
-	        
-	        //Check Answer
-	        if (correctAnswer == 1 && op1 != null) {
-	        	Answer = "1";
-	        	Marks = marksForAnswer;
-	        }
-	        else if (correctAnswer == 2 && op2 != null) {
-	        	Answer = "2";
-	        	Marks = marksForAnswer;
-	        }
-	        else if (correctAnswer == 3 && op3 != null) {
-	        	Answer = "3";
-	        	Marks = marksForAnswer;
-	        }
-	        else if (correctAnswer == 4 && op4 != null) {
-	        	Answer = "4";
-	        	Marks = marksForAnswer;
-	        }
-	        
-	        System.out.println(session.getAttribute("Student") + "\t" + quizCode + "\t" + Answer + "\t" + Marks);
-	        
-	        request.setAttribute("quizErrMessage", "YOUR RESPONSE HAS BEEN SAVED");
+	        request.setAttribute("quizSccMessage", "YOUR RESPONSE HAS BEEN SAVED");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Give-Test.jsp");
             requestDispatcher.forward(request, response);
-	        /*Connection con = null;
+	        Connection con = null;
 	    	Statement statement = null;
 	    	ResultSet resultSet = null;
 	    	
 	    	try {
-	    		//con = DBConnection.createConnection();
-	    		//statement = con.createStatement();
-	    		//resultSet = statement.executeQuery("insert into qresult values('"+session.getAttribute("Student")+"', '"+quizCode+"', '"+Answer+"', "+Marks+")");
+	    		String title = null;
+	    		con = DBConnection.createConnection();
+	    		statement = con.createStatement();
+	    		resultSet = statement.executeQuery("SELECT title from create_quiz where code = " + session.getAttribute("quizCodeSQL"));
+	    		if (resultSet.next()) {
+	    			title = resultSet.getString("title");
+	    		}
+	    		
+	    		statement.executeUpdate("insert into result values('"+session.getAttribute("quizCodeSQL")+"', '"+title+"', '"+session.getAttribute("Student")+"', "+marks+", "+totalMarks+")");
 	    	} catch (SQLException E) {
 	    		E.printStackTrace();
-	    	}*/
+	    	}
 	    }
     }
 }
