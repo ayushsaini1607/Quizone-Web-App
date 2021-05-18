@@ -122,7 +122,8 @@ if((request.getSession(false).getAttribute("Admin")== null) )
       <div class="row">
         <div class="col-md-12">
           <div class="tile">
-            <div class="tile-body">
+            <div class="tile-body">   
+              <div style="color:red"><%=request.getAttribute("errMsg")==null ? "" : request.getAttribute("errMsg") %></div>           
               <div class="table-responsive">
               <form name="edit-users" action="<%=request.getContextPath()%>/edit-users" method="get"> 
                 <table class="table table-hover table-bordered" id="sampleTable">
@@ -174,7 +175,6 @@ if((request.getSession(false).getAttribute("Admin")== null) )
       </div>
     </main>
       
-    </main>
     <!-- Essential javascripts for application to work-->
     <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
     <script src="<%=request.getContextPath()%>/js/popper.min.js"></script><!-- Notification ka dropdown -->

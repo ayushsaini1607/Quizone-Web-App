@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import com.users.Teacher;
+import com.validationMethods.ValidateInput;
 import com.users.Admin;
 import com.users.Student;
 
@@ -42,6 +43,27 @@ public class EditUsersServlet extends HttpServlet{
 			  String email = request.getParameterValues("email")[update];
 			  String userType = request.getParameterValues("userType")[update];
 			  String instituteId = request.getParameterValues("inst_id")[update];
+			  
+			  if(!ValidateInput.isAlpha(fname))
+			  {
+				  request.setAttribute("errMsg", "First Name should only contain alphabets!");
+				  request.getRequestDispatcher("manage-users").forward(request, response);	 
+				  return;
+			  }
+			  
+			  if(!ValidateInput.isAlpha(lname))
+			  {
+				  request.setAttribute("errMsg", "Last Name should only contain alphabets!");
+				  request.getRequestDispatcher("manage-users").forward(request, response);	 
+				  return;
+			  }
+				  
+			  if(ValidateInput.hasSpecialCharacters(instituteId))
+			  {
+				  request.setAttribute("errMsg", "Institute ID cannot contain special characters!");
+				  request.getRequestDispatcher("manage-users").forward(request, response);	 
+				  return;
+			  }
 			  
 	//		  System.out.println("Username=" + username);
 	//		  System.out.println("First name= " + fname);
