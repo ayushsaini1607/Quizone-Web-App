@@ -125,11 +125,11 @@ if((request.getSession(false).getAttribute("Student")== null) )
           </div>
         </div>
       </div>
-      <!--  <div class="row">
+      <div class="row">
         <div class="col-md-12">
           <div class="tile">
            <div class="tile-body">
-                <form name="edit-password" method="post" action="<%= request.getContextPath() %>/edit-teacher">
+                <form name="edit-password" method="post" action="<%= request.getContextPath() %>/editStudent">
                 <h5>Change Password :</h5>
                 <div class="form-group">
                   <label class="control-label">New Password</label>
@@ -154,7 +154,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
             </div>
           </div>
         </div>
-       </div> -->
+       </div>
     </main>
    <!-- Essential javascripts for application to work-->
     <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.min.js"></script>
