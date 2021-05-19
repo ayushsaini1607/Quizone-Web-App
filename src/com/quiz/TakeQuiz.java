@@ -49,6 +49,8 @@ public class TakeQuiz extends HttpServlet {
 	    	try {
 	    		con = DBConnection.createConnection();
 	    		statement = con.createStatement();
+	    		
+//	    		resultSet = statement.executeQuery(quizCode)
 	    		resultSet = statement.executeQuery("select * from quiz");
 	    		
 	    		while(resultSet.next()) {
