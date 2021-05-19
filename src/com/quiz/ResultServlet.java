@@ -72,6 +72,7 @@ public class ResultServlet extends HttpServlet {
 	    			Result result = new Result();
 	    			result.setUsername(resultset.getString("participants"));
 	    			result.setScore(Float.parseFloat(resultset.getString("score")));
+	    			result.setTotal(Float.parseFloat(resultset.getString("totalMarks")));
 	    			results.add(result);
 	    			request.setAttribute("resultList", results);
 	    			request.setAttribute("quiz_quiz",code);

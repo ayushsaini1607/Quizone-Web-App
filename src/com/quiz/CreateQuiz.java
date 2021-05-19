@@ -81,17 +81,19 @@ public class CreateQuiz extends HttpServlet {
 		        		System.out.println(""+p.toString());
 		      			p.executeUpdate();
 		      			p.close();
-		      
-		        		
+		      			String errCre = "Quiz Created! Quiz Code -> "+code;	
+		      			request.setAttribute("quizCreMessage", errCre);
+		      			System.out.println(" Message : "+errCre);
 		        	} catch(SQLException E)
 		        	{
 		        		E.printStackTrace();
 		        	}
-		        	
+		        
+		        
 		        if(request.getParameter("next") != null) {
 		  			  request.getRequestDispatcher("JSP/questions.jsp").forward(request, response);
 		  		 }else if(request.getParameter("create") != null) {
-		  			  request.getRequestDispatcher("JSP/TestStats.jsp").forward(request, response);
+		  			  request.getRequestDispatcher("JSP/create-test.jsp").forward(request, response);
 		  		 }
 		  }
 	}

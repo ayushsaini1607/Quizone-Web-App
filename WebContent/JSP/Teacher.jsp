@@ -24,7 +24,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
 <body class="app sidebar-mini">
 <!-- Navbar-->
     <header class="app-header">
-      <a class="app-header__logo" href="index.html">Quizone</a>
+      <a class="app-header__logo" href="#">Quizone</a>
       <!-- Sidebar toggle button-->
       <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
@@ -172,7 +172,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="#"><i class="icon fa fa-circle-o"></i> Home</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/create-test.jsp"><i class="icon fa fa-circle-o"></i> Create Quiz</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/create-test.jsp" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Create Quiz</a></li>
             <li><a class="treeview-item" href="JSP/EditQuiz.jsp"><i class="icon fa fa-circle-o"></i> Edit Quiz</a></li>
             <li><a class="treeview-item" href="JSP/TestStats.jsp"><i class="icon fa fa-circle-o"></i> Quiz Stats</a></li>
             <li><a class="treeview-item" href="JSP/QuizResult.jsp"><i class="icon fa fa-circle-o"></i> Quiz Result</a></li>
@@ -214,7 +214,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
       </div>
       <div class="row">
         <div class="col-md-6">
-          <a href="<%=request.getContextPath()%>/JSP/create-test.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Create Quiz</button></a><br><br><br>
+          <a href="<%=request.getContextPath()%>/JSP/create-test.jsp" target="_blank" rel="noopener"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Create Quiz</button></a><br><br><br>
         </div>
         <div class="col-md-6">
           <a href="<%=request.getContextPath()%>/JSP/TestStats.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Quiz Stats</button></a><br><br><br>  

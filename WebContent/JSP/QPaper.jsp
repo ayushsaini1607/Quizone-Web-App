@@ -26,7 +26,7 @@ if((request.getSession(false).getAttribute("Student") == null) )
 <body class="app sidebar-mini">
     <!-- Navbar-->
     <header class="app-header">
-      <a class="app-header__logo tym" href="" id="demo"><i class="fa fa-clock-o fa-lg">	Time Remaining</i></a>
+      <a class="app-header__logo tym" href="" id="demo" ><i class="fa fa-clock-o fa-lg">	Time Remaining</i></a>
       <!-- Sidebar toggle button-->
       <!-- <a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a> -->
       <!-- Navbar Right Menu-->
@@ -96,6 +96,9 @@ if((request.getSession(false).getAttribute("Student") == null) )
 	<%@page import="java.sql.Connection"%>
 	<%@page import="java.util.*" %>
 	<%@page import="com.quiz.Question" %>
+	<%@page import="java.time.LocalDate" %>
+	<%@page import="java.time.LocalTime" %>
+	<%@page import="java.time.Month" %>
 
 	<%
 	ArrayList <Question> questions = new ArrayList<Question>();
@@ -105,7 +108,7 @@ if((request.getSession(false).getAttribute("Student") == null) )
 	String password = "Ayush@123";
 
 	try {
-		Class.forName("com.mysql.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
 	} catch (ClassNotFoundException e) {
 		e.printStackTrace();
 	}
@@ -136,6 +139,18 @@ if((request.getSession(false).getAttribute("Student") == null) )
 		}
 		
 		session.setAttribute("questionBank", questions);
+		String quizDate = null;
+		String quizStime = null;
+		String quizEtime = null;
+		resultSet = statement.executeQuery("SELECT * FROM create_quiz where code="+session.getAttribute("quizCodeSQL"));
+		if(resultSet.next()){
+			quizDate = resultSet.getString("date");
+			quizStime = resultSet.getString("stime");
+		    quizEtime = resultSet.getString("etime");
+		}
+		session.setAttribute("quizDate", quizDate);
+		session.setAttribute("quizStime", quizStime);
+		session.setAttribute("quizEtime", quizEtime);
 	%>
 	<form method = post action="<%= request.getContextPath() %>/SaveAnswer">
 	<%
@@ -196,7 +211,21 @@ if((request.getSession(false).getAttribute("Student") == null) )
   </script>
     <script>
 // Set the date we're counting down to
-var countDownDate = new Date("Apr 18, 2022 17:37:25").getTime();
+<% 
+LocalTime time1 = LocalTime.parse((String)session.getAttribute("quizEtime"));
+LocalDate date2 = LocalDate.parse((String)session.getAttribute("quizDate"));
+int yyyy = date2.getYear();
+int mm = date2.getMonthValue();
+Month m = date2.getMonth();
+int dd = date2.getDayOfMonth();
+String date3 = null;
+
+date3 = ""+m.toString()+" "+dd+", "+yyyy+" "+time1+":00";
+session.setAttribute("countDown",date3);
+System.out.println(" Countdown : "+session.getAttribute("countDown"));
+%>
+var dd = "<%=(String)session.getAttribute("countDown")%>";
+var countDownDate = new Date(dd).getTime();
 
 // Update the count down every 1 second
 var x = setInterval(function() {
@@ -219,9 +248,26 @@ var x = setInterval(function() {
   // If the count down is over, write some text 
   if (distance < 0) {
     clearInterval(x);
-    document.getElementById("demo").innerHTML = "EXPIRED";
+    document.getElementById("demo").innerHTML = "Expired";
   }
 }, 1000);
+ 
 </script>
+<script type="text/javascript">
+        function preventBack() {
+            window.history.forward(); 
+        }
+          
+        setTimeout("preventBack()", 0);
+          
+        window.onunload = function () { null };
+    </script>
+<!--    <script type="text/javascript">
+        window.history.forward();
+        function noBack() {
+            window.history.forward();
+        }
+         
+    </script> -->
 </body>
 </html>

@@ -66,6 +66,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
           </div>
           <div class="form-group btn-container" >
             <a href="questions.html"><button class="btn btn-primary btn-block" type="submit"><i class="fa fa-chevron-circle-right fa-lg fa-fw" ></i>CONTINUE</button></a>
+            <div style="color:green"><%=(request.getAttribute("quizCreMessage") == null	) ? "" : request.getAttribute("quizCreMessage")%></div>
           </div>
           <!--<div class="form-group mt-3">
             <p class="semibold-text mb-0"><a href="#" data-toggle="flip"><i class="fa fa-angle-left fa-fw"></i> Back</a></p>
@@ -79,14 +80,16 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
     <script src="<%=request.getContextPath()%>/js/popper.min.js"></script><!-- Notification ka dropdown -->
     <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
     <script src="<%=request.getContextPath()%>/js/main.js"></script><!-- Dashboard ka dropdown -->
-    <script type="text/javascript">
+    
+    
+  <!--    <script type="text/javascript">
       // Mre Details Page Flipbox control
       $('.login-content [data-toggle="flip"]').click(function() {
         $('.login-box').toggleClass('flipped');
         return false;
       });
     </script>
-    <script type="text/javascript">
+   <script type="text/javascript">
     function Compare() {
         var strStartTime = document.getElementById("startTime").value;
         var strEndTime = document.getElementById("endTime").value;
@@ -114,6 +117,6 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
     function GetMinutes(d) {
         return parseInt(d.split(':')[1].split(' ')[0]);
     }
-    </script>
+    </script> -->
   </body>
 </html>

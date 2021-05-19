@@ -93,7 +93,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
             <li><a class="treeview-item" href="dashboard.html"><i class="icon fa fa-circle-o"></i> Home</a></li>
-            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/Give-Test.jsp"><i class="icon fa fa-circle-o"></i> Give Test</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/Give-Test.jsp" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Give Test</a></li>
             <li><a class="treeview-item" href="history.html"><i class="icon fa fa-circle-o"></i> History</a></li>
           </ul>
         </li>
@@ -132,7 +132,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
       </div>
       <div class="row">
         <div class="col-md-6">
-          <a href="<%=request.getContextPath()%>/JSP/Give-Test.jsp"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Give Test</button></a><br><br><br>
+          <a href="<%=request.getContextPath()%>/JSP/Give-Test.jsp" target="_blank" rel="noopener"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Give Test</button></a><br><br><br>
         </div>
         <div class="col-md-6">
           <a href="history.html"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Test History</button></a><br><br><br>  
