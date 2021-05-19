@@ -144,30 +144,28 @@ public class Student implements User {
         	return false;     		
         }
         
-        public void edit(String changedValue)
+        public boolean edit(String changedValue)
         {
         	Connection con=null;
         	PreparedStatement statement=null;
         	
         	try {        		
         		con=DBConnection.createConnection();
-        		
-        			
         			String sqlUpdate="update users set password= ? where username= ?";
         			statement=con.prepareStatement(sqlUpdate);
        		        statement.setString(1,changedValue);
        		        statement.setString(2,this.username);
             		this.setPassword(changedValue);
             		statement.executeUpdate();
-        		if(statement!=null)
-    				statement.close();
-    			if(con!=null)
-    				con.close();
-        		
-        		
+            		if(statement!=null)
+            			statement.close();
+            		if(con!=null)
+            			con.close();
+            		return true;
         	} catch(SQLException E)
         		{
         			E.printStackTrace();
+        			return false;
         		}
         }
         
