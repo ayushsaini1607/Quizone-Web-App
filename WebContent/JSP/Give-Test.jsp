@@ -28,7 +28,7 @@ if((request.getSession(false).getAttribute("Student") == null) )
   </section>
   <section class="login-content">
     <div class="logo">
-     <h1>Quizone</h1> 
+     <a href="<%=request.getContextPath()%>/JSP/Student.jsp"><h1 style="color:white">Quizone</h1></a>
     </div>
     <div class="test-box">
       <form class="login-form " method="post" action="<%= request.getContextPath() %>/TakeQuiz">

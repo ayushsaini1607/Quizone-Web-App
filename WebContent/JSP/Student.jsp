@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.login.util.DBConnection" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.SQLException" %>
+<%@ page import="java.sql.Statement" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +31,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
 <body class="app sidebar-mini">
     <!-- Navbar-->
     <header class="app-header">
-      <a class="app-header__logo" href="index.html">Quizone</a>
+      <a class="app-header__logo" href="<%=request.getContextPath()%>/JSP/Student.jsp">Quizone</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
@@ -131,16 +136,16 @@ if((request.getSession(false).getAttribute("Student")== null) )
     <!-- Sidebar menu-->
     <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
     <aside class="app-sidebar">
-      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="images/logo.png" width="50" alt="User Image">
+      <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="<%=request.getContextPath() %>/images/logo.png" width="50" alt="User Image">
         <div>
-          <p class="app-sidebar__user-name"><%=request.getAttribute("username") %></p>
+          <p class="app-sidebar__user-name"><%= session.getAttribute("Student") %></p>
           <p class="app-sidebar__user-designation">Student</p>
         </div>
       </div>
       <ul class="app-menu">
         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="dashboard.html"><i class="icon fa fa-circle-o"></i> Home</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/Student.jsp"><i class="icon fa fa-circle-o"></i> Home</a></li>
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/Give-Test.jsp" target="_blank" rel="noopener"><i class="icon fa fa-circle-o"></i> Give Test</a></li>
             <li><a class="treeview-item" href="history.html"><i class="icon fa fa-circle-o"></i> History</a></li>
           </ul>
@@ -160,12 +165,55 @@ if((request.getSession(false).getAttribute("Student")== null) )
           <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
         </ul>
       </div>
+      <%
+      
+			        float testAttempt = 0;
+        		    float sumScore = 0;
+        		    float sumMax = 0;
+        		    float avg = 0;
+        		    //String curr_username = (String)request.getAttribute("username");
+        		    //System.out.println(curr_username);
+        		    
+			        con=null;
+					Statement statement=null;
+					ResultSet resultSet = null;
+			       
+					
+					try{
+				  		con = DBConnection.createConnection();
+				  		statement = con.createStatement(); 
+				  		resultSet = statement.executeQuery("select count(participants) as noOfParticipants from result where participants='" + session.getAttribute("Student") + "'");
+				  		if(resultSet.next())
+				  			testAttempt = resultSet.getFloat("noOfParticipants");
+				  		resultSet = statement.executeQuery("select sum(score) as totalScore, sum(totalMarks) as totalMax from result where participants='" + session.getAttribute("Student") + "'");
+				  		if(resultSet.next())
+				  			{
+				  			  sumScore = resultSet.getFloat("totalScore");
+				  			  System.out.println(sumScore);
+				  			  sumMax = resultSet.getFloat("totalMax");
+				  			  System.out.println(sumMax);
+				  			}
+				  		avg = (sumScore/sumMax)*100;
+				  		System.out.println(avg);
+				  		//out.println("userCount = " +  userCount);
+				
+				  		resultSet.close();
+			  	  		statement.close();
+			  	  		con.close(); 
+			  		} catch(SQLException E)
+			  			{
+			  				//userCount="0";
+			  				//teacherCount="0";
+			  				E.printStackTrace();
+			  				
+			  			}   
+				%>
       <div class="row">
         <div class="col-md-6">
           <div class="widget-small primary coloured-icon"><i class="icon fa fa-file-text fa-3x"></i>
             <div class="info">
               <h4>Test Attempted</h4>
-              <p><b>5</b></p>
+              <p><b><%= testAttempt %></b></p>
             </div>
           </div>
         </div>
@@ -173,7 +221,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
           <div class="widget-small info coloured-icon"><i class="icon fa fa-bar-chart fa-3x"></i>
             <div class="info">
               <h4>Average Score</h4>
-              <p><b>8.5/10</b></p>
+              <p><b><%= avg %>/100</b></p>
             </div>
           </div>
         </div>

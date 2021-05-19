@@ -26,7 +26,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
 %>
 <body class="app sidebar-mini">
 <header class="app-header">
-      <a class="app-header__logo" href="index.html">Quizone</a>
+      <a class="app-header__logo" href="<%= request.getContextPath() %>/JSP/Student.jsp">Quizone</a>
       <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
       <!-- Navbar Right Menu-->
       <ul class="app-nav">
@@ -93,7 +93,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
       <ul class="app-menu">
         <li class="treeview"><a class="app-menu__item active" href="#" data-toggle="treeview"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span><i class="treeview-indicator fa fa-angle-right"></i></a>
           <ul class="treeview-menu">
-            <li><a class="treeview-item" href="dashboard.html"><i class="icon fa fa-circle-o"></i> Home</a></li>
+            <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/Student.jsp"><i class="icon fa fa-circle-o"></i> Home</a></li>
             <li><a class="treeview-item" href="<%=request.getContextPath()%>/JSP/Give-Test.jsp"><i class="icon fa fa-circle-o"></i> Give Test</a></li>
             <li><a class="treeview-item" href="history.html"><i class="icon fa fa-circle-o"></i> History</a></li>
           </ul>
