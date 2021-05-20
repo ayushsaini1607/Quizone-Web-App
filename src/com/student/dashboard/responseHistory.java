@@ -50,20 +50,28 @@ public class responseHistory extends HttpServlet {
 	    		con = DBConnection.createConnection();
 	    		statement = con.createStatement();
 	    			
-	    		resultSet = statement.executeQuery("select QuizCode from detailed_result");
+	    		resultSet = statement.executeQuery("select QuizCode from detailed_result where QuizCode='" + quizCode + "'");
 	    		
-	    		while(resultSet.next()) {
-	    			if (quizCode.equals(resultSet.getString("QuizCode"))) {
-	    				found = true;
-	        			request.setAttribute("DetailedCode", quizCode);
-	    	            request.getRequestDispatcher("/JSP/DetailedHistory.jsp").forward(request, response);
-	    				response.sendRedirect(request.getContextPath()+"/JSP/DetailedHistory.jsp");
-	    			}
+	    		if(resultSet.next())
+	    		{
+	    			System.out.println("inside response resultSet");
+	    			found = true;
+	    			request.setAttribute("DetailedCode", quizCode);
+	    			request.getRequestDispatcher("/JSP/DetailedHistory.jsp").forward(request, response);	
+	    			return;
 	    		}
+//	    		while(resultSet.next()) {
+//	    			if (quizCode.equals(resultSet.getString("QuizCode"))) {
+//	    				found = true;
+//	        			request.setAttribute("DetailedCode", quizCode);
+//	    	            request.getRequestDispatcher("/JSP/DetailedHistory.jsp").forward(request, response);
+//	    				response.sendRedirect(request.getContextPath()+"/JSP/DetailedHistory.jsp");
+//	    			}
+//	    		}
 	    		if (found == false) {
 	    			request.setAttribute("DetailedCode", "NA");
     	            request.getRequestDispatcher("/JSP/TestHistory.jsp").forward(request, response);
-    				response.sendRedirect(request.getContextPath()+"/JSP/TestHistory.jsp");
+    				//response.sendRedirect(request.getContextPath()+"/JSP/TestHistory.jsp");
 		        }
 	    	} catch (SQLException E) {
 	    		E.printStackTrace();

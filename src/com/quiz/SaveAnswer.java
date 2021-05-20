@@ -60,7 +60,7 @@ public class SaveAnswer extends HttpServlet {
         		totalMarks += i.getWeightage();
         	}
 	        
-	        request.setAttribute("quizSccMessage", "YOUR RESPONSE HAS BEEN SAVED");
+	        request.setAttribute("quizSccMessage", "Your response has been saved");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Give-Test.jsp");
             requestDispatcher.forward(request, response);
 	        Connection con = null;

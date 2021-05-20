@@ -62,6 +62,8 @@ public class EditQuizServlet extends HttpServlet {
 				code = Integer.parseInt(request.getAttribute("code_code").toString());
 			}
 			
+			System.out.println(code);
+			
 	        LocalDate date1 = java.time.LocalDate.now();
 	
 			ArrayList<Question> questions = new ArrayList<Question>();
@@ -118,6 +120,10 @@ public class EditQuizServlet extends HttpServlet {
 	    		request.getRequestDispatcher("/JSP/EditQuiz.jsp").forward(request, response);
 	    	}else if(request.getParameter("addQ") != null) {
 	    		request.getRequestDispatcher("/JSP/questions.jsp").forward(request, response);
+	    	}
+	    	else if(request.getAttribute("code_code")!=null)
+	    	{
+	    		request.getRequestDispatcher("/JSP/EditQuiz.jsp").forward(request, response);
 	    	}
 			
 		}

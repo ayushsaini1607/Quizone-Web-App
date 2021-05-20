@@ -109,7 +109,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
         </div>
         <ul class="app-breadcrumb breadcrumb">
           <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-          <li class="breadcrumb-item"><a href="#">Stats</a></li>
+          <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/JSP/TestHistory.jsp">Stats</a></li>
         </ul>
       </div>
       <div class="row">
@@ -118,7 +118,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
             <div class="tile-body">
             <div class="table-responsive">
             <table class="table table-hover table-bordered" id="sampleTable">
-            <h3 class="tile-title">Test Response: </h3>
+            <h3 class="tile-title">Test Response</h3>
               <thead>
                 <tr>
                   <th>Question</th>
@@ -165,7 +165,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
   					yourAnswer = rs.getString("option4");
   				}
   				else {
-  					yourAnswer = "DID NOT ATTEMPT";
+  					yourAnswer = "";
   				}
   				
   				//NO TO STRING OF CORRECT RESPONSE

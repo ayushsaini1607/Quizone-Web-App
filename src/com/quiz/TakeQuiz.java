@@ -71,14 +71,14 @@ public class TakeQuiz extends HttpServlet {
 	    			}
 	    		}
 	    		if (found == false) {
-		            request.setAttribute("quizErrMessage", "INVALID QUIZ CODE");
+		            request.setAttribute("quizErrMessage", "Invalid Quiz Code");
 		            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Give-Test.jsp");
 		            requestDispatcher.forward(request, response);
 		            System.out.println("Incorrect Code Fomart");
 		        }
 	    		}
 	    		else {
-	    			request.setAttribute("quizErrMessage", "TEST ALREADY SUBMITTED");
+	    			request.setAttribute("quizErrMessage", "Test already submitted");
 		            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Give-Test.jsp");
 		            requestDispatcher.forward(request, response);
 		            System.out.println("Incorrect Code Fomart");

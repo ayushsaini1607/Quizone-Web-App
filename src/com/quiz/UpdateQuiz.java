@@ -48,7 +48,7 @@ public class UpdateQuiz extends HttpServlet {
 				
 			Connection con=null;
 	    	Statement statement=null;
-	    	
+	
 	    	try {
 	    		con=DBConnection.createConnection();
 	    		statement = con.createStatement();
@@ -64,6 +64,13 @@ public class UpdateQuiz extends HttpServlet {
 	    			 String query = " update quiz set questionTitle='"+questionTitle+"', option1='"+options[0]+"', option2='"+options[1]+"', option3='"
 	    			    		+options[2]+"', option4='"+options[3]+"', answer="+correct+", marks="+marks+" where quiz_id="+quiz_id;
 	    			int r = statement.executeUpdate(query);
+	    			
+	    			ResultSet resultSet = statement.executeQuery("select quiz_code from quiz where quiz_id=" + quiz_id);
+	    			if(resultSet.next())
+	    			  {
+	    				System.out.println(resultSet.getInt("quiz_code"));
+	    				request.setAttribute("code_code",resultSet.getInt("quiz_code"));
+	    			  }
 	    			    		
 	    			if(r == 0) {
 	    				System.out.println(" Quiz ID not Found!");
@@ -92,6 +99,13 @@ public class UpdateQuiz extends HttpServlet {
 				    rrrr.close();
 		  			String query = " delete from quiz where quiz_id="+quiz_id;
 				    int rrr = statement.executeUpdate(query);
+				    
+				    ResultSet resultSet = statement.executeQuery("select quiz_code from quiz where quiz_id=" + quiz_id);
+	    			if(resultSet.next())
+	    			  {
+	    				System.out.println(resultSet.getInt("quiz_code"));
+	    				request.setAttribute("code_code",resultSet.getInt("quiz_code"));
+	    			  }
 				    		
 				    if(rrr == 0) {
 					    System.out.println(" Quiz ID not Found!");
