@@ -147,7 +147,12 @@ if((request.getSession(false).getAttribute("Student")== null) )
   		%>
   				<tr>
                   <td><%=r.getString("quizTitle") %></td>
-                  <td><%=r.getString("quizCode") %></td>
+                  <td>
+                  <form method=post action="<%=request.getContextPath()%>/responseHistory">
+                  <input type="hidden" name="codeForDetailed" value=<%=r.getString("quizCode") %>>
+                  <button type="submit"><%=r.getString("quizCode") %></button>
+                  </form>
+                  </td>
                   <td><%=r.getString("score") %>/<%=r.getString("totalMarks")%></td>
                   <td><%=session.getAttribute("percentage") %>%</td>
                 </tr>
@@ -174,5 +179,18 @@ if((request.getSession(false).getAttribute("Student")== null) )
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript">$('#sampleTable').DataTable();</script>
+    <script type="text/javascript">
+	function alertName(){
+		alert("RESPONSE FOR THIS QUIZ IS UNAVAILABLE");
+	} 
+	</script>
+    <script type="text/javascript">
+    var og = '${DetailedCode}';
+    var comp = "NA";
+    if (og == comp) {
+		System.out.println("CONDITION MET WITH " + request.getAttribute("DetailedCode"));
+    	onload = alertName;
+    }
+    </script>
 </body>
 </html>
