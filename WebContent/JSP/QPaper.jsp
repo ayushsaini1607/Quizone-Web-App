@@ -116,9 +116,7 @@ if((request.getSession(false).getAttribute("Student") == null) )
 	Connection connection = null;
 	Statement statement = null;
 	ResultSet resultSet = null;
-	%>
 	
-	<%
 	try{ 
 		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"testproject", userId, password);
 		statement=connection.createStatement();

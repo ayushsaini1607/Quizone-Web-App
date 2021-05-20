@@ -42,6 +42,7 @@ public class TakeQuiz extends HttpServlet {
         {
 	        String quizCode = request.getParameter("quizCode");
 	        boolean found = false;
+	        boolean already = false;
 	        Connection con = null;
 	    	Statement statement = null;
 	    	ResultSet resultSet = null;
@@ -50,7 +51,15 @@ public class TakeQuiz extends HttpServlet {
 	    		con = DBConnection.createConnection();
 	    		statement = con.createStatement();
 	    		
-//	    		resultSet = statement.executeQuery(quizCode)
+	    		resultSet = statement.executeQuery("select * from result");
+	    		while(resultSet.next()) {
+	    			if (resultSet.getString("participants").equals(session.getAttribute("Student")) && resultSet.getString("quizCode").equals(quizCode)) {
+	    				already = true;
+	    			}
+	    		}
+	    		
+	    		if (!already) {
+	    			
 	    		resultSet = statement.executeQuery("select * from quiz");
 	    		
 	    		while(resultSet.next()) {
@@ -67,6 +76,13 @@ public class TakeQuiz extends HttpServlet {
 		            requestDispatcher.forward(request, response);
 		            System.out.println("Incorrect Code Fomart");
 		        }
+	    		}
+	    		else {
+	    			request.setAttribute("quizErrMessage", "TEST ALREADY SUBMITTED");
+		            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/JSP/Give-Test.jsp");
+		            requestDispatcher.forward(request, response);
+		            System.out.println("Incorrect Code Fomart");
+	    		}
 	    	} catch (SQLException E) {
 	    		E.printStackTrace();
 	    	}

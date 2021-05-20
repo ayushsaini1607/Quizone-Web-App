@@ -44,7 +44,7 @@ public class SaveAnswer extends HttpServlet {
         	int [] answers = new int[size];
         	for(int i = 0; i < size; i++) {
         		if (request.getParameter("options"+i) == null)
-        			answers[i] = -1;
+        			answers[i] = 0;
         		else
         			answers[i] = Integer.parseInt(request.getParameter("options"+i));
         	}
@@ -77,6 +77,12 @@ public class SaveAnswer extends HttpServlet {
 	    		}
 	    		
 	    		statement.executeUpdate("insert into result values('"+session.getAttribute("quizCodeSQL")+"', '"+title+"', '"+session.getAttribute("Student")+"', "+marks+", "+totalMarks+")");
+	    	
+	    	//Logging marks in detailed_result
+	    	for (int i = 0; i < questionBank.size(); i++) {
+	    		statement.executeUpdate("insert into detailed_result values('"+session.getAttribute("quizCodeSQL")+"', '"+session.getAttribute("Student")+"', '"+questionBank.get(i).getId()+"', "+answers[i]+", "+totalMarks+")");
+	    	}
+	    	
 	    	} catch (SQLException E) {
 	    		E.printStackTrace();
 	    	}

@@ -165,13 +165,42 @@ if((request.getSession(false).getAttribute("Student")== null) )
           <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
         </ul>
       </div>
+      
+    <%
+	try {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+	} catch (ClassNotFoundException e) {
+		e.printStackTrace();
+	}
+
+	Connection connection = null;
+	Statement statement = null;
+	ResultSet resultSet = null;
+	
+	try{ 
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"testproject", username, password);
+		statement=connection.createStatement();
+		resultSet = statement.executeQuery("SELECT * FROM result");
+		
+		int QuizAttempted = 0;
+		float marksAcq = 0;
+		while(resultSet.next()) {
+			if(resultSet.getString("participants").equals(session.getAttribute("Student"))) {
+				QuizAttempted++;
+				marksAcq += Float.parseFloat(resultSet.getString("score"));
+			}
+		}
+		marksAcq /= QuizAttempted;
+		session.setAttribute("QuizAttempted", QuizAttempted);
+		session.setAttribute("marksAcq", marksAcq);
+	%>
      
       <div class="row">
         <div class="col-md-6">
           <div class="widget-small primary coloured-icon"><i class="icon fa fa-file-text fa-3x"></i>
             <div class="info">
               <h4>Test Attempted</h4>
-              <p><b>5</b></p>
+              <p><b><%=session.getAttribute("QuizAttempted") %></b></p>
             </div>
           </div>
         </div>
@@ -179,11 +208,18 @@ if((request.getSession(false).getAttribute("Student")== null) )
           <div class="widget-small info coloured-icon"><i class="icon fa fa-bar-chart fa-3x"></i>
             <div class="info">
               <h4>Average Score</h4>
-              <p><b>8/10</b></p>
+              <p><b><%=session.getAttribute("marksAcq") %></b></p>
             </div>
           </div>
         </div>
       </div>
+      
+      <%
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	%>
+      
       <div class="row">
         <div class="col-md-6">
           <a href="<%=request.getContextPath()%>/JSP/Give-Test.jsp" target="_blank" rel="noopener"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Give Test</button></a><br><br><br>
