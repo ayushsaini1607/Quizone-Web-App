@@ -52,9 +52,14 @@ final public class Password {
           for(int i = 4; i< length ; i++) {
              pass[i] = combinedChars.charAt(random.nextInt(combinedChars.length()));
           }
+          
           System.out.println(String.valueOf(pass));
-          if(String.valueOf(pass)!=null)
-            return String.valueOf(pass);
+          
+          if(checkStrongPassword(String.valueOf(pass)))
+             if(String.valueOf(pass)!=null)
+                return String.valueOf(pass);
+             else
+        	    return generatePassword();
           else
         	  return generatePassword();
       }
