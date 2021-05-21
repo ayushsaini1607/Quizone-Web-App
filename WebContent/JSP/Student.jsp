@@ -166,41 +166,56 @@ if((request.getSession(false).getAttribute("Student")== null) )
         </ul>
       </div>
       
-    <%
-	try {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
-	}
-
-	Connection connection = null;
-	Statement statement = null;
-	ResultSet resultSet = null;
-	
-	try{ 
-		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"testproject", username, password);
-		statement=connection.createStatement();
-		resultSet = statement.executeQuery("SELECT * FROM result");
-		
-		int QuizAttempted = 0;
-		float marksAcq = 0;
-		while(resultSet.next()) {
-			if(resultSet.getString("participants").equals(session.getAttribute("Student"))) {
-				QuizAttempted++;
-				marksAcq += Float.parseFloat(resultSet.getString("score"));
-			}
-		}
-		marksAcq /= QuizAttempted;
-		session.setAttribute("QuizAttempted", QuizAttempted);
-		session.setAttribute("marksAcq", marksAcq);
-	%>
+  <%
+      
+			        int testAttempt = 0;
+        		    float sumScore = 0;
+        		    float sumMax = 0;
+        		    float avg = 0;
+        		    //String curr_username = (String)request.getAttribute("username");
+        		    //System.out.println(curr_username);
+        		    
+			        con=null;
+					Statement statement=null;
+					ResultSet resultSet = null;
+			       
+					
+					try{
+				  		con = DBConnection.createConnection();
+				  		statement = con.createStatement(); 
+				  		resultSet = statement.executeQuery("select count(participants) as noOfParticipants from result where participants='" + session.getAttribute("Student") + "'");
+				  		if(resultSet.next())
+				  			testAttempt = resultSet.getInt("noOfParticipants");
+				  		resultSet = statement.executeQuery("select sum(score) as totalScore, sum(totalMarks) as totalMax from result where participants='" + session.getAttribute("Student") + "'");
+				  		if(resultSet.next())
+				  			{
+				  			  sumScore = resultSet.getFloat("totalScore");
+				  			  System.out.println(sumScore);
+				  			  sumMax = resultSet.getFloat("totalMax");
+				  			  System.out.println(sumMax);
+				  			}
+				  		avg = (sumScore/sumMax)*100;
+				  		System.out.println(avg);
+				  		//out.println("userCount = " +  userCount);
+				
+				  		resultSet.close();
+			  	  		statement.close();
+			  	  		con.close(); 
+			  		} catch(SQLException E)
+			  			{
+			  				//userCount="0";
+			  				//teacherCount="0";
+			  				E.printStackTrace();
+			  				
+			  			}   
+				%>
      
       <div class="row">
         <div class="col-md-6">
           <div class="widget-small primary coloured-icon"><i class="icon fa fa-file-text fa-3x"></i>
             <div class="info">
               <h4>Test Attempted</h4>
-              <p><b><%=session.getAttribute("QuizAttempted") %></b></p>
+              <p><b><%= testAttempt %></b></p>
             </div>
           </div>
         </div>
@@ -208,18 +223,11 @@ if((request.getSession(false).getAttribute("Student")== null) )
           <div class="widget-small info coloured-icon"><i class="icon fa fa-bar-chart fa-3x"></i>
             <div class="info">
               <h4>Average Score</h4>
-              <p><b><%=session.getAttribute("marksAcq") %></b></p>
+              <p><b><%=avg%>/100</b></p>
             </div>
           </div>
         </div>
       </div>
-      
-      <%
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-	%>
-      
       <div class="row">
         <div class="col-md-6">
           <a href="<%=request.getContextPath()%>/JSP/Give-Test.jsp" target="_blank" rel="noopener"><button type="button" class="btn btn-lg btn-outline-success col-md-12">Give Test</button></a><br><br><br>
