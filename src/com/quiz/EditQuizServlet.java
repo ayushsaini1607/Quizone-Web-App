@@ -59,7 +59,7 @@ public class EditQuizServlet extends HttpServlet {
 			if(request.getParameter("code_edit") != null) {
 				code = Integer.parseInt(request.getParameter("code_edit"));
 			}else {
-				code = Integer.parseInt(request.getAttribute("code_code").toString());
+				code = Integer.parseInt(session.getAttribute("code_code").toString());
 			}
 			
 			System.out.println(code);

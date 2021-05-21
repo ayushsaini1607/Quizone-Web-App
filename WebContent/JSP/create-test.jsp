@@ -51,17 +51,17 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
         <form class="forget-form" action="questions.html"> -->
           <div class="form-group">
             <label class="control-label">Test Start time</label>
-            <input id="startTime" class="form-control" type="time" placeholder="Enter Test start time" onchange="Compare()" name="startTime">
+            <input id="startTime" class="form-control" type="time" placeholder="Enter Test start time" onchange="Compare()" required name="startTime">
             <div style="color:red"><%=(request.getAttribute("errSt") == null) ? "" : request.getAttribute("errSt")%></div>
           </div>
           <div class="form-group">
             <label class="control-label">Test End time</label>
-            <input id="endTime" class="form-control" type="time" placeholder="Enter Test end time" onchange="Compare()" name="endTime">
+            <input id="endTime" class="form-control" type="time" placeholder="Enter Test end time" onchange="Compare()" required name="endTime">
             <div style="color:red"><%=(request.getAttribute("errTime") == null) ? "" : request.getAttribute("errTime")%></div>
           </div>
           <div class="form-group">   
             <label class="control-label">Test Date</label>
-            <input class="form-control" type="date" name="testDate">
+            <input class="form-control" type="date" name="testDate" required>
             <div style="color:red"><%=(request.getAttribute("errDate") == null) ? "" : request.getAttribute("errDate")%></div>
           </div>
           <div class="form-group btn-container" >

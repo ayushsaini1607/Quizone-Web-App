@@ -150,7 +150,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
                   <td>
                   <form method=post action="<%=request.getContextPath()%>/responseHistory">
                   <input type="hidden" name="codeForDetailed" value=<%=r.getString("quizCode") %>>
-                  <button type="submit"><%=r.getString("quizCode") %></button>
+                  <button class="btn btn-primary" type="submit"><%=r.getString("quizCode") %></button>
                   </form>
                   </td>
                   <td><%=r.getString("score") %>/<%=r.getString("totalMarks")%></td>
