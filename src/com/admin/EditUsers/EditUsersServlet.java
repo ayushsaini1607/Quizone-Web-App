@@ -1,6 +1,10 @@
 package com.admin.EditUsers;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.SQLException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -10,6 +14,7 @@ import jakarta.servlet.http.HttpSession;
 
 import com.users.Teacher;
 import com.validationMethods.ValidateInput;
+import com.login.util.DBConnection;
 import com.users.Admin;
 import com.users.Student;
 
@@ -44,6 +49,49 @@ public class EditUsersServlet extends HttpServlet{
 			  String userType = request.getParameterValues("userType")[update];
 			  String instituteId = request.getParameterValues("inst_id")[update];
 			  
+			  Connection con=null;
+		      Statement statement=null;
+		      ResultSet resultSet=null;
+		    	
+		    	
+		    	try {
+		    		
+		    		con=DBConnection.createConnection();
+		    		statement = con.createStatement();
+		    		resultSet = statement.executeQuery("select email from users where username!='" + username + "'");
+		    		while(resultSet.next())
+		    		{
+		    		   if(email.equals(resultSet.getString("email")))
+		    		   {
+		    			  request.setAttribute("errMsg", "Two users cannot have same email!");
+		 				  request.getRequestDispatcher("manage-users").forward(request, response);	 
+		 				  return;
+		    		   }
+		    		}
+		    	} catch(SQLException E)
+		    	{
+		    		E.printStackTrace();
+		    	}
+		    		
+		      try {
+		    		
+		    		con=DBConnection.createConnection();
+		    		statement = con.createStatement();
+		    		resultSet = statement.executeQuery("select institute_id from username_to_inst_id where username!='" + username + "'");
+		    		while(resultSet.next())
+		    		{
+		    		   if(instituteId.equals(resultSet.getString("institute_id")))
+		    		   {
+		    			  request.setAttribute("errMsg", "Two users cannot have same instituteID!");
+		 				  request.getRequestDispatcher("manage-users").forward(request, response);	 
+		 				  return;
+		    		   }
+		    		}
+		    	} catch(SQLException E)
+		    	{
+		    		E.printStackTrace();
+		    	}
+		      
 			  if(!ValidateInput.isAlpha(fname))
 			  {
 				  request.setAttribute("errMsg", "First Name should only contain alphabets!");
