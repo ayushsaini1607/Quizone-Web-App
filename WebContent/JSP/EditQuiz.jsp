@@ -177,7 +177,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
                   </select>
                   <!-- <input class="form-control "  style="margin-right:25px" type="number" placeholder="Enter 6 digit Quiz Code" name="code_edit" required>  -->
                   <button class="btn btn-primary"  style="margin-right:25px" name="result" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Search Quiz</button>
-                  <button class="btn btn-primary" name="addQ" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>ADD Questions</button>
+                 <button class="btn btn-primary" name="addQ" type="submit" ><i class="fa fa-fw fa-lg fa-check-circle"></i>ADD Questions</button>
            </div>
          </form>
       </div>

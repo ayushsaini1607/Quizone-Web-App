@@ -93,7 +93,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
         <div>
         <%
         //String one = request.getAttribute("user");
-        System.out.println("profile name : "+ session.getAttribute("user"));
+        //System.out.println("profile name : "+ session.getAttribute("user"));
         %>
           <p class="app-sidebar__user-name"><%=session.getAttribute("Tea") %></p>
           <p class="app-sidebar__user-designation">Faculty</p>
