@@ -46,55 +46,10 @@ if((request.getSession(false).getAttribute("Student") == null) )
           <h1><i class="fa fa-file-text"></i><input type="text" value="Quiz Title" disabled="true"></h1>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col-md-12">
-          <div class="tile">
-            <h3 class="tile-title">Questions</h3>
-            <div class="tile-body">
-              <form>
-                <div class="form-group">
-                  <label class="control-label">Q1.</label>
-                  <textarea id="quesstion" class="form-control" rows="4" value="Enter your Question" disabled="true"></textarea>
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Options</label>
-                  <div class="utility">
-                  <div class="animated-radio-button">
-                    <div class ="options">
-                      <label class="form-group btn-container options">
-                        <input type="radio" id="A" value="A" name="correct"><span class="label-text"> A  </span>
-                      </label>
-                    </div>
-                    <div class ="options">
-                      <label class="form-group btn-container options">
-                        <input type="radio" id="B" value="B" name="correct"><span class="label-text"> B  </span>
-                      </label>
-                    </div>
-                    <div class ="options">
-                      <label class="form-group btn-container options">
-                        <input type="radio" id="C" value="C" name="correct"><span class="label-text"> C  </span>
-                      </label>
-                    </div>
-                    <div class ="options">
-                      <label class="form-group btn-container options">
-                        <input type="radio" id="D" value="D" name="correct"><span class="label-text"> D  </span>
-                      </label>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="tile-footer">
-              <button class="btn btn-primary" type="button"><i class="fa fa-fw fa-lg fa-check-circle"></i>NEXT</button>
-            </div>
-          </div>
-        </div> -->
-	<%@page import="java.sql.DriverManager"%>
-	<%@page import="java.sql.ResultSet"%>
-	<%@page import="java.sql.Statement"%>
-	<%@page import="java.sql.Connection"%>
+      
+	<%@page import="java.sql.*"%>
 	<%@page import="java.util.*" %>
+	<%@ page import="com.login.util.DBConnection" %>
 	<%@page import="com.quiz.Question" %>
 	<%@page import="java.time.LocalDate" %>
 	<%@page import="java.time.LocalTime" %>
@@ -102,10 +57,6 @@ if((request.getSession(false).getAttribute("Student") == null) )
 
 	<%
 	ArrayList <Question> questions = new ArrayList<Question>();
-	
-	String id = request.getParameter("userId");
-	String userId = "root";
-	String password = "Ayush@123";
 
 	try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -118,7 +69,7 @@ if((request.getSession(false).getAttribute("Student") == null) )
 	ResultSet resultSet = null;
 	
 	try{ 
-		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+"testproject", userId, password);
+		connection = DBConnection.createConnection();
 		statement=connection.createStatement();
 		resultSet = statement.executeQuery("SELECT * FROM quiz");
 		
@@ -155,32 +106,19 @@ if((request.getSession(false).getAttribute("Student") == null) )
 		int var = 0;
 		for(Question i:questions) {
 	%>
-       <div class="container-quiz mt-sm-5 my-1">
-
+    <div class="container-quiz mt-sm-5 my-1">
     <div class="question ml-sm-5 pl-sm-5 pt-2">
-
     <div class="py-2 h5"><b><%=i.getQuestionTitle() %></b></div>
-
     <div class="ml-md-3 ml-sm-3 pl-md-5 pt-sm-0 pt-3" id="options">
-
     <label class="options"><%=i.getOptions()[0] %> <input type="radio" name="options<%=var%>" value = "1"> <span class="checkmark"></span> </label>
-
     <label class="options"><%=i.getOptions()[1] %> <input type="radio" name="options<%=var%>" value = "2"> <span class="checkmark"></span> </label>
-
     <label class="options"><%=i.getOptions()[2] %> <input type="radio" name="options<%=var%>" value = "3"> <span class="checkmark"></span> </label>
-
     <label class="options"><%=i.getOptions()[3] %> <input type="radio" name="options<%=var%>" value = "4"> <span class="checkmark"></span> </label>
-
     </div>
-
     </div>
-
     <div class="d-flex align-items-center pt-3">
-
     <!-- <div id="prev"><button class="btn btn-pri"> Previous </button></div> -->
-
     </div>
-
 </div>
     <% 
     	var++;

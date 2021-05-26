@@ -129,14 +129,12 @@ if((request.getSession(false).getAttribute("Student")== null) )
               </thead>
               <tbody>
               <%@page import="java.sql.*" %>
+              <%@ page import="com.login.util.DBConnection" %>
       <%
       	Connection con=null;
-  		String url = "jdbc:mysql://localhost:3306/testproject";
-  		String username ="root";
-  		String password="Ayush@123";
   		try {
   			Class.forName("com.mysql.cj.jdbc.Driver");
-  			con=DriverManager.getConnection(url, username, password);
+  			con=DBConnection.createConnection();
   			System.out.println("Post establishing a DB connection in TestHistory.jsp - "+con);	
   			PreparedStatement ps = con.prepareStatement("select * from result where participants='"+session.getAttribute("Student")+"'");
   			ResultSet r = ps.executeQuery();
@@ -179,18 +177,5 @@ if((request.getSession(false).getAttribute("Student")== null) )
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/plugins/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript">$('#sampleTable').DataTable();</script>
-    <script type="text/javascript">
-	function alertName(){
-		alert("RESPONSE FOR THIS QUIZ IS UNAVAILABLE");
-	} 
-	</script>
-    <script type="text/javascript">
-    var og = '${DetailedCode}';
-    var comp = "NA";
-    if (og == comp) {
-		System.out.println("CONDITION MET WITH " + request.getAttribute("DetailedCode"));
-    	onload = alertName;
-    }
-    </script>
 </body>
 </html>

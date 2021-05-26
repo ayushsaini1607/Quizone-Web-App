@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="com.login.util.DBConnection" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.SQLException" %>
-<%@ page import="java.sql.Statement" %>
+<%@page import="java.sql.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,16 +77,10 @@ if((request.getSession(false).getAttribute("Student")== null) )
         <%
         final String stud = request.getParameter("username");
         session.setAttribute("user", stud);
-        %>
-        <%@page import="java.sql.*" %>
-      	<%
       	Connection con=null;
-  		String url = "jdbc:mysql://localhost:3306/testproject";
-  		String username ="root";
-  		String password="Ayush@123";
   		try {
   			Class.forName("com.mysql.cj.jdbc.Driver");
-  			con=DriverManager.getConnection(url, username, password);
+  			con=DBConnection.createConnection();
   			System.out.println("Post establishing a DB connection - "+con);	
   			PreparedStatement ps = con.prepareStatement("select * from users where username='"+session.getAttribute("user")+"'");
   			ResultSet r = ps.executeQuery();
@@ -171,7 +162,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
 			        int testAttempt = 0;
         		    float sumScore = 0;
         		    float sumMax = 0;
-        		    float avg = 0;
+        		    double avg = 0;
         		    //String curr_username = (String)request.getAttribute("username");
         		    //System.out.println(curr_username);
         		    
@@ -195,8 +186,12 @@ if((request.getSession(false).getAttribute("Student")== null) )
 				  			  System.out.println(sumMax);
 				  			}
 				  		avg = (sumScore/sumMax)*100;
-				  		System.out.println(avg);
-				  		//out.println("userCount = " +  userCount);
+				  		if (avg >= 0.00001) {
+				  			avg = (sumScore/sumMax)*100;
+				  		}
+				  		else {
+				  			avg = 0;
+				  		}
 				
 				  		resultSet.close();
 			  	  		statement.close();

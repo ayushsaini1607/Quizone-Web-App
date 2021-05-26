@@ -129,15 +129,13 @@ if((request.getSession(false).getAttribute("Student")== null) )
               </thead>
               <tbody>
       <%@page import="java.sql.*" %>
+      <%@ page import="com.login.util.DBConnection" %>
       <%
       	String code = (String)request.getAttribute("DetailedCode");
       	Connection con=null;
-  		String url = "jdbc:mysql://localhost:3306/testproject";
-  		String username ="root";
-  		String password="Ayush@123";
   		try {
   			Class.forName("com.mysql.cj.jdbc.Driver");
-  			con=DriverManager.getConnection(url, username, password);
+  			con=DBConnection.createConnection();
   			System.out.println("Post establishing a DB connection in DetailedHistory.jsp - "+con);	
   			
   			PreparedStatement ps = con.prepareStatement("select * from detailed_result where username='"+session.getAttribute("Student")+"' and QuizCode='"+code+"'");
