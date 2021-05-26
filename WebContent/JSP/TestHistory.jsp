@@ -140,7 +140,8 @@ if((request.getSession(false).getAttribute("Student")== null) )
   			ResultSet r = ps.executeQuery();
   			while(r.next()){
   				float percentage = Float.parseFloat(r.getString("score"))*100/Float.parseFloat(r.getString("totalMarks"));
-  				session.setAttribute("percentage", percentage);
+  				String perce = String.format("%.2f", percentage);
+  				session.setAttribute("percentage", perce);
   				
   		%>
   				<tr>

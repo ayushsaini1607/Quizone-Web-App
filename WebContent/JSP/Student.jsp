@@ -163,6 +163,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
         		    float sumScore = 0;
         		    float sumMax = 0;
         		    double avg = 0;
+        		    String avge = null;
         		    //String curr_username = (String)request.getAttribute("username");
         		    //System.out.println(curr_username);
         		    
@@ -188,9 +189,11 @@ if((request.getSession(false).getAttribute("Student")== null) )
 				  		avg = (sumScore/sumMax)*100;
 				  		if (avg >= 0.00001) {
 				  			avg = (sumScore/sumMax)*100;
+				  			avge = String.format("%.2f", avg);
 				  		}
 				  		else {
 				  			avg = 0;
+				  			avge = "0";
 				  		}
 				
 				  		resultSet.close();
@@ -218,7 +221,7 @@ if((request.getSession(false).getAttribute("Student")== null) )
           <div class="widget-small info coloured-icon"><i class="icon fa fa-bar-chart fa-3x"></i>
             <div class="info">
               <h4>Average Score</h4>
-              <p><b><%=avg%>/100</b></p>
+              <p><b><%=avge%>/100</b></p>
             </div>
           </div>
         </div>

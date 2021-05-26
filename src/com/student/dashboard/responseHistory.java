@@ -60,14 +60,6 @@ public class responseHistory extends HttpServlet {
 	    			request.getRequestDispatcher("/JSP/DetailedHistory.jsp").forward(request, response);	
 	    			return;
 	    		}
-//	    		while(resultSet.next()) {
-//	    			if (quizCode.equals(resultSet.getString("QuizCode"))) {
-//	    				found = true;
-//	        			request.setAttribute("DetailedCode", quizCode);
-//	    	            request.getRequestDispatcher("/JSP/DetailedHistory.jsp").forward(request, response);
-//	    				response.sendRedirect(request.getContextPath()+"/JSP/DetailedHistory.jsp");
-//	    			}
-//	    		}
 	    		if (found == false) {
 	    			request.setAttribute("DetailedCode", "NA");
     	            request.getRequestDispatcher("/JSP/TestHistory.jsp").forward(request, response);

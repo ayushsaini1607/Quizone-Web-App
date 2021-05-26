@@ -247,7 +247,7 @@ if((request.getSession(false).getAttribute("Teacher")== null) )
 			        dom: 'Blfrtip',
 		            buttons: [      
 		                {
-		                    extend: 'excelHtml5',
+		                    extend: 'csvHtml5',
 		                    title: 'Quiz Result : <%= request.getAttribute("quiz_quiz") %>',
 		                    className: 'btn_excel',
 		                    text:'Download Results' 
